@@ -24,8 +24,34 @@ class QuickEdit_Base extends EditorWindow
 	var storedSelection : GameObject;
 	var storedLength : int;
 	var vertHandleSelection : QuickEdit_VertHandleScript[];
-	var activeObjectPrevPos : Vector3;
+	var activeObjectPrevTransform : TRS = new TRS(Vector3.zero, Quaternion.identity, Vector3.one);
 	
+	class TRS 
+	{
+		var translation : Vector3;
+		var rotation : Quaternion;
+		var scale : Vector3;
+
+		function TRS(t : Vector3, r : Quaternion, s : Vector3)
+		{
+			translation = t;
+			rotation = r;
+			scale = s;
+		}
+
+		function Set(t : Transform)
+		{
+			translation = t.position;
+			rotation = t.localRotation;
+			scale = t.localScale;
+		}
+
+		function Equals(t : Transform)
+		{
+			return t.position == translation && t.localRotation == rotation && t.localScale == scale;
+		}
+	}
+
 	//Update Loop
 	function Update()
 	{
@@ -41,11 +67,10 @@ class QuickEdit_Base extends EditorWindow
 			//move verts
 			if(Selection.activeTransform && !sel_Dirty)
 			{
-				activeObjectCurrentPos = Selection.activeTransform.position;
-				if(activeObjectCurrentPos != activeObjectPrevPos)
+				if( !activeObjectPrevTransform.Equals(Selection.activeTransform) )
 				{
 					UpdateVertHandles();
-					activeObjectPrevPos = activeObjectCurrentPos; 
+					activeObjectPrevTransform.Set(Selection.activeTransform); 
 				}			
 			}
 		}
@@ -64,7 +89,6 @@ class QuickEdit_Base extends EditorWindow
 		//save the starting mesh data, so it can be cancelled
 		backupMeshVertData = sourceMesh.vertices;
 		backupMeshUVData = sourceMesh.uv;
-		
 		
 		if(!editingShared) //copy the source mesh, save it, and make it the new used mesh
 		{
@@ -85,7 +109,7 @@ class QuickEdit_Base extends EditorWindow
 			}
 			//
 
-			AssetDatabase.CreateAsset(editMesh, "Assets/ProCore/QuickEdit/Meshes/"+newMeshName+".asset");
+			AssetDatabase.CreateAsset(editMesh, AssetDatabase.GenerateUniqueAssetPath("Assets/ProCore/QuickEdit/Meshes/"+newMeshName+".asset"));
 			AssetDatabase.SaveAssets();
 
 			sourceObject.GetComponent(MeshFilter).sharedMesh = editMesh;
@@ -122,9 +146,11 @@ class QuickEdit_Base extends EditorWindow
 				DestroyImmediate(theVertHandle.gameObject);
 			}
 		}
+
 		Selection.objects = new Array();
 		Selection.activeObject = sourceObject;
-		editModeActive = false;	
+
+		editModeActive = false;
 	}
 	
 	function ExitEditMode()
@@ -137,16 +163,59 @@ class QuickEdit_Base extends EditorWindow
 			}
 		}
 		
-		//special addition for MT - this will copy the new mesh into the MeshCollider (if available) as well
-		if(sourceObject.GetComponent(MeshCollider) != null)
-		{
-			sourceObject.GetComponent(MeshCollider).sharedMesh = editMesh;
-		}
+		// //special addition for MT - this will copy the new mesh into the MeshCollider (if available) as well
+		// if(sourceObject.GetComponent(MeshCollider) != null)
+		// {
+		// 	sourceObject.GetComponent(MeshCollider).sharedMesh = editMesh;
+		// }
 		
+		RefreshColliders(sourceObject);
 		
 		Selection.objects = new Array();
 		Selection.activeObject = sourceObject;
 		editModeActive = false;
+	}
+
+	function RefreshColliders(obj : GameObject)
+	{
+		var msh : Mesh = obj.GetComponent(MeshFilter).sharedMesh;
+		
+		msh.RecalculateBounds();
+		
+		if(obj.GetComponent(Collider))
+		{
+			for(var c : Collider in obj.GetComponents(Collider))
+			{
+				var t : System.Type = c.GetType();
+
+				if(t == typeof(BoxCollider))
+				{
+					c.center = msh.bounds.center;
+					c.size = msh.bounds.size;
+				} else
+				if(t == typeof(SphereCollider))
+				{
+					c.center = msh.bounds.center;
+					c.radius = Mathf.Max(Mathf.Max(msh.bounds.extents.x, msh.bounds.extents.y), msh.bounds.extents.z);
+				} else
+				if(t == typeof(CapsuleCollider))
+				{
+					c.center = msh.bounds.center;
+					c.radius = Mathf.Maxx( msh.bounds.extents.x, msh.bounds.extents.z);
+					c.height = msh.bounds.size.y;
+				} else
+				if(t == typeof(WheelCollider))
+				{
+					c.center = msh.bounds.center;
+					c.radius = Mathf.Max(Mathf.Max(msh.bounds.extents.x, msh.bounds.extents.y), msh.bounds.extents.z);
+				} else
+				if(t == typeof(MeshCollider))
+				{
+					obj.GetComponent(MeshCollider).sharedMesh = null;
+					obj.GetComponent(MeshCollider).sharedMesh = msh;
+				} 
+			}
+		}
 	}
 	
 	//check the pos of each vert, and assign to vert handle or make new vert handle as needed
@@ -157,13 +226,17 @@ class QuickEdit_Base extends EditorWindow
 			if(!VertHandleHere(theVertPos, vertIndex))
 			{
 				//create a new vert handle at this vert's pos and set it up
-				var newVertHandle = Instantiate(vertHandlePrefab, Vector3.zero, Quaternion.identity);
+				var newVertHandle = new GameObject();//Instantiate(vertHandlePrefab, Vector3.zero, Quaternion.identity);
+				newVertHandle.AddComponent(QuickEdit_VertHandleScript);
 				newVertHandle.transform.parent = sourceObject.transform;
 				newVertHandle.transform.localPosition = theVertPos;
 				newVertHandle.GetComponent(QuickEdit_VertHandleScript).Activate();
 				newVertHandle.GetComponent(QuickEdit_VertHandleScript).AddVertIndex(vertIndex);
 				newVertHandle.name = "VertHandle_"+vertIndex;
-				
+					
+				// don't do this 'cause DrawGizmos can't be called on hidden objects
+				// newVertHandle.hideFlags = HideFlags.HideInHierarchy;
+
 				//add the new vert handle to the vert handle array
 				var tempHandles = new Array();
 				tempHandles = vertHandles;
@@ -174,7 +247,7 @@ class QuickEdit_Base extends EditorWindow
 		}
 	}
 	
-	function VertHandleHere(theVertPos : Vector3, vertIndex : int)
+	function VertHandleHere(theVertPos : Vector3, vertIndex : int) : boolean
 	{
 		for(theVertHandle in vertHandles)
 		{
@@ -184,9 +257,10 @@ class QuickEdit_Base extends EditorWindow
 				return true;
 			}
 		}
+		return false;
 	}
 	
-	function NameIsUnique(newMeshName : String)
+	function NameIsUnique(newMeshName : String) : boolean
 	{
 		if(AssetDatabase.LoadAssetAtPath("Assets/ProCore/QuickEdit/Meshes/"+newMeshName+".asset", typeof(Object)))
 		{
@@ -226,7 +300,9 @@ class QuickEdit_Base extends EditorWindow
 						tempSel.Add(tvh.gameObject);
 					}
 					Selection.objects = tempSel;
-					activeObjectPrevPos = Selection.activeTransform.position;
+					
+					activeObjectPrevTransform.Set(Selection.activeTransform);
+
 					for(theVertHandle in vertHandleSelection)
 					{
 						theVertHandle.isSelected = true;

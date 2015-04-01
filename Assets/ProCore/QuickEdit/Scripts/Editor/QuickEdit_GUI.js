@@ -1,12 +1,23 @@
 class QuickEdit_GUI extends QuickEdit_Base 
 {
-    @MenuItem("Tools/QuickEdit (v1.4.3)")
+
+    @MenuItem("Tools/QuickEdit/QuickEdit")
     static function Initialize()
 	{
-        var window = GetWindow(QuickEdit_GUI, true, "QuickEdit v1.4.3");
+        var window = GetWindow(QuickEdit_GUI, true, "QuickEdit");
         window.Show();
     }
 	
+    /**
+     * Not sure why this is necessary - for some reason editModeActive is getting
+     * set to true on initialization every time.
+     */
+    function OnEnable()
+    {
+    	editModeActive = false;
+    	Repaint();
+    }
+
 	//force exit mesh edit on close
 	function OnDisable()
 	{
@@ -58,7 +69,7 @@ class QuickEdit_GUI extends QuickEdit_Base
 				}
 			}
 			
-			if(GUILayout.Button("Edit Source Mesh (Instance)") && Selection.activeGameObject && Selection.gameObjects.length == 1 && Selection.activeGameObject.GetComponent(MeshFilter))
+			if(GUILayout.Button("Edit Source Mesh") && Selection.activeGameObject && Selection.gameObjects.length == 1 && Selection.activeGameObject.GetComponent(MeshFilter))
 			{
 				if(EditorUtility.DisplayDialog("Did you make a Copy?", "Did you edit as a 'Copy' first? You must do this at least once, or Unity will undo all your edits upon restarting the program!", "Okay", "Cancel"))
 				{

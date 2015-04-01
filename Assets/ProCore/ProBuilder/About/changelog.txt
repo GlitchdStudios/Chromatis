@@ -1,4 +1,171 @@
--- ProBuilder 2.3.0f13 (r2854) -
+-- ProBuilder 2.4.3p0 (r3216) -
+
+# Features
+	- Weld distance now adjustable in UV editor.
+
+# Bug Fixes
+	- Fix weird arch geometry near caps, noticeable when inserting edge loops.
+	- Improve 'Flip Normals' shortcut context awareness.
+
+-- ProBuilder 2.4.3f0 (r3202) -
+
+# Features
+	- Add preference to enable back-face selection.
+
+# Bug Fixes
+	- Remove 'here' console log.
+	- Fix regression in 2.4.0 that broke Undo when used with ProGrids.
+	- Fix 'Look Rotation is Zero' console logs when selecting a face with degenerate triangles.
+	- Fix bug where sometimes clicking a face would not register due to a culled face intercepting the raycast.
+
+-- ProBuilder 2.4.2f0 (r3202) -
+
+# Features
+	- New debug window visualizes mesh information in the sceneview.
+
+# Bug Fixes
+	- Fix regression that broke prefab editing applying to instances.
+	- Fix latency in SceneView when selecting elements in the UV window.
+	- Fix bug where selecting elements in the UV window would not Undo correctly.
+	- Fix regression that caused UV handle to not update its position when right-click dragging.
+	- Fix bug where texture rotation handle in the scene view would not snap correctly on finishing a UV adjustment.
+	- Fix bug where drag selecting edges or faces could select elements behind the scene camera.
+
+-- ProBuilder 2.4.1f1 (r3174) -
+
+# Features
+	- New "Export UV Template" function saves a PNG of your UV maps.
+	- Add new preference to show object vertex, face, and triangle count in the scene view (Preferences/Show Scene Info).
+
+# Bug Fixes
+	- Edge wireframe no longer renders the material preview wells.
+	- Fix performance issues when editing large objects in the UV editor with Auto UVs.
+	- Fix bug where 'Push to Grid' from ProGrids would not Undo correctly.
+	- Fix lagging wireframe when running "Freeze Transforms" action.
+	- Fix null ref when deleting multiple faces.
+
+
+-- ProBuilder 2.4.0f4 (r3132) -
+
+# Features
+	- Unity 5 support.
+	- New wireframe shader overrides Unity default when ProBuilder Editor is open.
+	- New 'Merge Faces' geometry action combines selected faces to a single face.
+	- Add `Missing Script Reference` repair item.
+	- Show color name in vertex tools instead of RGBA info.
+	- When creating an mesh Asset, also create a prefab with the new mesh and materials already wired up.
+	- Cull hidden edges when in Edge mode.
+	- Fix spotty face selection highlight rendering when using Deferred Rendering.
+	- Add preference to disable automatic UV2 generation while modeling (improves editor performance).
+	- When selecting a texture-grouped face in UV editor, show an indicator of all faces in group.
+	- Improve performance when modifying geometry & UVs in Unity 5.
+	- New dark background in UV editor for Unity light skin users.
+	- Improve performance when selecting objects with large vertex counts.
+
+# Bug Fixes	
+	- Fix crash when a face material is null (defaults to Unity Default-Diffuse).
+	- Fix incorrect results when extruding multiple faces sharing a single center vertex (usually seen on the top of a cylinder).
+	- Save vertex colors when ProBuilder-izing a mesh.
+	- Fix occasional null ref when continuing UVs.
+	- Support Undo in UV Editor Auto panel.
+	- Support Undo for `Push to Grid` events from ProGrids.
+	- Fix occasional `Index out of range` errors when subdividing, triangulating, and setting pivot.
+	- Fix crash when running `Fix Missing Script References` in Unity 5.0.0b18 (big thanks to Michael N!)
+	- Improve the performance of Planar Mapping manual UVs.
+	- Create Material data asset path if it doesn't exist (fixes errors when saving Material preferences).
+	- Fix bug where dragging UVs in Unity 5 would sometimes corrupt the mesh.
+	- Disable Continuous Baking when dragging elements or making continuous changes to the mesh, fixing corruption issues in Unity 5.
+	- Fix occasional erroneous error message when subdividing faces.
+	- Fix null ref error when Auto UV panel is open with nothing selected.
+	- Allow `V` key usage when not in Element mode.
+	- Fix regression where instantiated objects would not respect ProGrids alignment.
+	- Fix leaks when deleting or duplicated pb_Objects.
+	- Fix occasional null ref errors when welding or collapsing vertices.
+	- When double-clicking a texture grouped face in UV editor, select the entire group.
+	- Fix regression that caused performance spikes when deleting or instantiating objects.
+	- When detaching faces to a new object, copy all of that objects properties.
+	- Add Undo support to Shape creation tool.
+	- Fix bug where running Flip Normals from the Menu would not immediately update the mesh graphics.
+	- When serializing pb_Objects, save color and material information (materials are now loaded by name).
+	- Fix bug where the texture handle tool would sometimes (most times) move UVs in the wrong direction.
+	- When entering Texture Blending mode in Vertex Painter, set the color to a solid variant of one of the available textures.
+	- Fix bug where projected UVs in manual mode could potentially be placed very far from the current handle.
+	- Fix lag when drag selecting edges on objects with large vertex counts.
+	- Fix bug where setting entity type would not immediately refresh the mesh.
+	- Fix minor edge selection bug that would break edge highlighting when not directly hovering a mesh.
+	- Improve appearance of Grow and Extrude foldouts in editor window.
+	- Fix bug where clicking on a vertex could sometimes select the object behind it.
+	- Fix compile errors when building to WebGL target.
+	- When creating a mesh asset, ensure that the source object mesh is not referenced by the new mesh asset.
+
+# Changes
+	- Remove 'NoDraw' feature (necessary for Unity 5 compatiblity).
+	
+# Beta
+	- Rudimentary Boolean tool added - this is very early in development.
+
+# Bug Fixes (since 2.4.0f1)
+	- Fix issue where "Repair Missing Script References" script could get stuck on prefab instances.
+	- Silence cast exception error in pb_Object_Editor.
+
+-- ProBuilder 2.3.3f1 (r2970) -
+
+# Features
+	- Significantly improve performance of Subdivide action.
+
+# Bug Fixes
+	- Fix incorrect language in Plane generator.
+	- Fix bug that resulted in mangled vertices when Welding.
+
+-- ProBuilder 2.3.2f2 (r2947) -
+
+# Features
+	- Add a toggle in pb_Entity to turn off automatic collision generation.
+	- Improve UV editor grid logic (now follows camera and resizes at far zoom levels).
+	- New PostProcessor automatically strips ProBuilder scripts when building executables (toggle-able in Preferences).
+
+# Bug Fixes
+	- Respect ProGrids `X` key shortcut when translating faces.
+	- Fix build errors with Static Batching enabled.
+	- When applying Smooothing Groups, if no face is selected apply group to entire object.
+	- Static Flags now initialized with `Occluder Static` unchecked.
+	- Pressing 'F' while a single vertex is selected no longer frames the entire object.
+	- Vertex colors are now copied when stripping ProBuilder scripts.
+
+-- ProBuilder 2.3.1f1 (r2900) -
+
+# Features
+	- New Vertex Painter tool.
+	- New 'Triangulate ProBuilder Object' action for facetized poly-world look.
+	- Significantly improve UV editor performance when drawing many elements.
+	- ProBuilderize action now preserves UVs.
+
+# Bug Fixes
+	- Fix error when opening Material Editor after assigning a Substance Material.
+	- Fix bug that caused pb_Editor to freeze when editing prefabs made from ProBuilder objects.
+	- Remove prefab dependency on ProBuilder.Instantiate or RebuildMeshOnWake.
+	- Fix mesh leak in Shape Tool.
+	- Enable Alt+NumKey material shortcut when in Object level.
+	- When shift-extruding faces in Edge mode, default to face extrusion over edge.
+	- Fix leaking mesh and material in Face editing mode.
+	- Fix install script bug that would incorrectly delete non-ProBuilder files.
+
+# Changes
+	- Handle position is now calculated as the center of selection bounding box.
+
+# API
+	- New 'HueCube.cs' API example script demonstrates changing single vertex colors.
+	- New 'pb_SerializableObject' class provides serializable storage for ProBuilder objects.  Add 'pb_Object::InitWithSerializableObject' constructor.  
+
+# Beta Notes f1
+	- Fix install script bug that would incorrectly delete non-ProBuilder files.
+
+# Beta Notes f0
+	- New Vertex Painter tool.
+	- Fix error when opening Material Editor after assigning a Substance Material.
+	- Handle position is now calculated as the center of selection bounding box.
+
+-- ProBuilder 2.3.0f14 (r2861) -
 
 # Features
 	- New UV Editor window.
@@ -14,6 +181,7 @@
 	- Editor: Add 'Distance' setting to Weld tool.
 	- Editor: Remove requirement that all pb_Objects be scaled to (1,1,1).
 	- Editor: Add context menu to swap between floating / dockable windows.
+	- Editor: New 'Conform Normals' geometry operation.
 	- UV: New 'Continue UVs' action.  With the UV Editor open, select a face then Ctrl + Click an adjacent face to seamlessly match UV coordinates.
 	- UV: Right click translation handle in UV editor to set a new pivot point (Ctrl snaps to grid, Shift key disables proximity snapping).
 	- UV: Merge Auto UV and Manual UV editors to a single ALL POWERFUL editor window.
@@ -60,6 +228,7 @@
 	- Editor: Allow submeshes to reference Null materials.
 	- Editor: Fix z-fighting face highlight in Deferred Rendering path.
 	- Editor: Setting EntityType is now undo-able.
+	- Editor: Fix bug where extruding from faces would not inherit the correct winding order.
 	- UV: Retain UV modifications when Subdividing, Connecting, or otherwise noodling around with a face.
 
 # Changes
@@ -88,6 +257,11 @@
 	- Removed most naughty words from the codebase.
 	- New pb_MenuCommands class synchronizes behavior between MenuItems and Editor buttons.
 	
+# Beta Notes: f14
+	- Editor: New 'Conform Normals' geometry operation.
+	- Editor: Fix bug where extruding from faces would not inherit the correct winding order.
+	- API: Add new 'GetWindingOrder(pb_Face face)' extension for pb_Object.
+
 # Beta Notes: f13
 	- API: TranslateVertices now operates in local space.  Add TranslateVertices_World for backwards compatibility.
 	- API: Extrude now optionally outs the appended faces.

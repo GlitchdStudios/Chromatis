@@ -1,0 +1,5 @@
+-- ProGroups 1.1.1 -
+
+# Bug Fixes
+	- Fix namespace conflicts with Bundle packages in Unity 5.
+	- Fix deprecated API warnings in Unity 5.

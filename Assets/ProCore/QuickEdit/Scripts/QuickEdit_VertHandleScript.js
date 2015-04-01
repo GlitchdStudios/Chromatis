@@ -28,17 +28,16 @@ function UpdateAttachedVerts(theMesh : Mesh)
 	theMesh.vertices = meshVerts;
 }
 
-function OnDrawGizmos()
+#if UNITY_EDITOR
+@DrawGizmo(GizmoType.NotSelected|GizmoType.Pickable)
+static function RenderOffGizmo(me : QuickEdit_VertHandleScript, gizType : GizmoType)
 {
-	if(isActive)
-	{
-		if(isSelected)
-		{
-			Gizmos.DrawIcon(transform.position, "ProCore/VertOn.tga", false);			
-		}
-		else
-		{
-			Gizmos.DrawIcon(transform.position, "ProCore/VertOff.tga", false);
-		}
-	}
+		Gizmos.DrawIcon(me.transform.position, "ProCore/VertOff.tga", false);
 }
+
+@DrawGizmo(GizmoType.Selected|GizmoType.Pickable)
+static function RenderOnGizmo(me : QuickEdit_VertHandleScript, gizType : GizmoType)
+{
+		Gizmos.DrawIcon(me.transform.position, "ProCore/VertOn.tga", false);
+}
+#endif

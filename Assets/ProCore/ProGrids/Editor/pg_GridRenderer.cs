@@ -1,48 +1,74 @@
-#if UNITY_4_3 || UNITY_4_3_0 || UNITY_4_3_1 || UNITY_4_3_2 || UNITY_4_3_3 || UNITY_4_3_4 || UNITY_4_3_5 || UNITY_4_3_6 || UNITY_4_3_7 || UNITY_4_3_8 || UNITY_4_3_9 || UNITY_4_4 || UNITY_4_4_0 || UNITY_4_4_1 || UNITY_4_4_2 || UNITY_4_4_3 || UNITY_4_4_4 || UNITY_4_4_5 || UNITY_4_4_6 || UNITY_4_4_7 || UNITY_4_4_8 || UNITY_4_4_9 || UNITY_4_5 || UNITY_4_5_0 || UNITY_4_5_1 || UNITY_4_5_2 || UNITY_4_5_3 || UNITY_4_5_4 || UNITY_4_5_5 || UNITY_4_5_6 || UNITY_4_5_7 || UNITY_4_5_8 || UNITY_4_5_9 || UNITY_4_6 || UNITY_4_6_0 || UNITY_4_6_1 || UNITY_4_6_2 || UNITY_4_6_3 || UNITY_4_6_4 || UNITY_4_6_5 || UNITY_4_6_6 || UNITY_4_6_7 || UNITY_4_6_8 || UNITY_4_6_9 || UNITY_4_7 || UNITY_4_7_0 || UNITY_4_7_1 || UNITY_4_7_2 || UNITY_4_7_3 || UNITY_4_7_4 || UNITY_4_7_5 || UNITY_4_7_6 || UNITY_4_7_7 || UNITY_4_7_8 || UNITY_4_7_9 || UNITY_4_8 || UNITY_4_8_0 || UNITY_4_8_1 || UNITY_4_8_2 || UNITY_4_8_3 || UNITY_4_8_4 || UNITY_4_8_5 || UNITY_4_8_6 || UNITY_4_8_7 || UNITY_4_8_8 || UNITY_4_8_9
-#define UNITY_4_3
-#elif UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2
-#define UNITY_4
-#elif UNITY_3_0 || UNITY_3_0_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_5_7 || UNITY_3_8
-#define UNITY_3
-#endif
-
-#define DEBUG
-
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 using ProGrids2;
+using System.Linq;
 
 public class pg_GridRenderer
 {
+	static readonly HideFlags PG_HIDE_FLAGS = (HideFlags) (1 | 2);
+	const string PREVIEW_OBJECT_NAME = "ProGridsGridObject";
+	const string MATERIAL_OBJECT_NAME = "ProGridsMaterialObject";
+	const string MESH_OBJECT_NAME = "ProGridsMeshObject";
+	const string GRID_SHADER = "Hidden/ProGrids/pg_GridShader";
 	const int MAX_LINES = 128;
 
-	#if !UNITY_3
-	static Material perspectiveGridMaterial;
-	#endif
+	static GameObject gridObject;
+	static Mesh gridMesh;
+	static Material gridMaterial;
 
+	/**
+	 * Destroy any existing render objects, then initialize new ones.
+	 */
 	public static void Init()
 	{
-		#if !UNITY_3
-		perspectiveGridMaterial = new Material(Shader.Find("Hidden/ProGrids/PerspectiveGrid"));
-		#endif
+		Destroy();
+
+		gridObject = EditorUtility.CreateGameObjectWithHideFlags(PREVIEW_OBJECT_NAME, PG_HIDE_FLAGS, new System.Type[2]{typeof(MeshFilter), typeof(MeshRenderer)});
+		gridObject.GetComponent<MeshRenderer>().enabled = false;
+		
+		// Force the mesh to only render in SceneView
+		gridObject.AddComponent<pg_SceneMeshRender>();
+
+		gridMesh = new Mesh();
+		gridMesh.name = MESH_OBJECT_NAME;
+		gridMesh.hideFlags = PG_HIDE_FLAGS;
+		gridObject.GetComponent<MeshFilter>().sharedMesh = gridMesh;
+
+		gridMaterial = new Material(Shader.Find(GRID_SHADER));
+		gridMaterial.name = MATERIAL_OBJECT_NAME;
+		gridMaterial.hideFlags = PG_HIDE_FLAGS;
+		gridObject.GetComponent<MeshRenderer>().sharedMaterial = gridMaterial;
 	}
 
 	public static void Destroy()
 	{
-		#if !UNITY_3
-		if(perspectiveGridMaterial != null)
-			GameObject.DestroyImmediate(perspectiveGridMaterial);
-		#endif
+		DestoryObjectsWithName(MESH_OBJECT_NAME, typeof(Mesh));
+		DestoryObjectsWithName(MATERIAL_OBJECT_NAME, typeof(Material));
+		DestoryObjectsWithName(PREVIEW_OBJECT_NAME, typeof(GameObject));
+	}
+
+	static void DestoryObjectsWithName(string Name, System.Type type)
+	{
+		IEnumerable go = Resources.FindObjectsOfTypeAll(type).Where(x => x.name.Contains(Name));
+		
+		foreach(Object t in go)
+		{
+			GameObject.DestroyImmediate(t);
+		}
 	}
 
 	private static int tan_iter, bit_iter, max = MAX_LINES, div = 1;
-	const int iter_padding = 4;	// always draw 4 more rows and columns than necessary
+	
 	/**
 	 * Returns the distance this grid is drawing
 	 */
 	public static float DrawPlane(Camera cam, Vector3 pivot, Vector3 tangent, Vector3 bitangent, float snapValue, Color color, float alphaBump)
 	{
+		if(!gridMesh || !gridMaterial || !gridObject)	
+			Init();
+
 		pivot = pg_Util.SnapValue(pivot, snapValue);
 
 		Vector3 p = cam.WorldToViewportPoint(pivot);
@@ -54,8 +80,8 @@ public class pg_GridRenderer
 
 		if(inFrustum)
 		{
-			tan_iter = (int)(Mathf.Ceil( (Mathf.Abs(distances[0]) + Mathf.Abs(distances[2]))/snapValue )) + iter_padding;
-			bit_iter = (int)(Mathf.Ceil( (Mathf.Abs(distances[1]) + Mathf.Abs(distances[3]))/snapValue )) + iter_padding;
+			tan_iter = (int)(Mathf.Ceil( (Mathf.Abs(distances[0]) + Mathf.Abs(distances[2]))/snapValue ));
+			bit_iter = (int)(Mathf.Ceil( (Mathf.Abs(distances[1]) + Mathf.Abs(distances[3]))/snapValue ));
 
 			max = Mathf.Max( tan_iter, bit_iter );
 
@@ -70,7 +96,7 @@ public class pg_GridRenderer
 
 			if(max > MAX_LINES)
 			{
-				if(Vector3.Distance(cam.transform.position, pivot) > 50f && Mathf.Abs(dot) > .8f)
+				if(Vector3.Distance(cam.transform.position, pivot) > 50f * snapValue && Mathf.Abs(dot) > .8f)
 				{
 					while(max/div > MAX_LINES)
 						div += div;
@@ -83,13 +109,16 @@ public class pg_GridRenderer
 		}
 
 		// origin, tan, bitan, increment, iterations, divOffset, color, primary alpha bump
-		DrawFullGrid(pivot, tangent, bitangent, snapValue*div, max/div, div, color, alphaBump);
+		DrawFullGrid(cam, pivot, tangent, bitangent, snapValue*div, max/div, div, color, alphaBump);
 
 		return ((snapValue*div)*(max/div));
 	}
 
 	public static void DrawGridPerspective(Camera cam, Vector3 pivot, float snapValue, Color[] colors, float alphaBump)
 	{
+		if(!gridMesh || !gridMaterial || !gridObject)	
+			Init();
+			
 		Vector3 camDir = (pivot - cam.transform.position).normalized;
 		pivot = pg_Util.SnapValue(pivot, snapValue);
 		
@@ -155,15 +184,45 @@ public class pg_GridRenderer
 			div++;
 		}
 
+		Vector3[] vertices_t = null;
+		Color[] colors_t = null;
+		int[] indices_t = null;
+
+		List<Vector3> vertices_m = new List<Vector3>();
+		List<Color> colors_m = new List<Color>();
+		List<int> indices_m = new List<int>();
+
 		// X plane
-		DrawHalfGrid(pivot, up, right, snapValue*div, x_iter/div, colors[0], alphaBump);
+		DrawHalfGrid(cam, pivot, up, right, snapValue*div, x_iter/div, colors[0], alphaBump, out vertices_t, out colors_t, out indices_t, 0);
+		vertices_m.AddRange(vertices_t);
+		colors_m.AddRange(colors_t);
+		indices_m.AddRange(indices_t);
+
 		// Y plane
-		DrawHalfGrid(pivot, right, forward, snapValue*div, y_iter/div, colors[1], alphaBump);
+		DrawHalfGrid(cam, pivot, right, forward, snapValue*div, y_iter/div, colors[1], alphaBump, out vertices_t, out colors_t, out indices_t, vertices_m.Count);
+		vertices_m.AddRange(vertices_t);
+		colors_m.AddRange(colors_t);
+		indices_m.AddRange(indices_t);
+
 		// Z plane
-		DrawHalfGrid(pivot, forward, up, snapValue*div, z_iter/div, colors[2], alphaBump);
+		DrawHalfGrid(cam, pivot, forward, up, snapValue*div, z_iter/div, colors[2], alphaBump, out vertices_t, out colors_t, out indices_t, vertices_m.Count);
+		vertices_m.AddRange(vertices_t);
+		colors_m.AddRange(colors_t);
+		indices_m.AddRange(indices_t);
+
+		gridMesh.Clear();
+		gridMesh.vertices = vertices_m.ToArray();
+		gridMesh.subMeshCount = 1;
+		gridMesh.uv = new Vector2[vertices_m.Count];
+		gridMesh.colors = colors_m.ToArray();
+		gridMesh.SetIndices(indices_m.ToArray(), MeshTopology.Lines, 0);
+
 	}
 
-	private static void DrawHalfGrid(Vector3 pivot, Vector3 tan, Vector3 bitan, float increment, int iterations, Color secondary, float alphaBump)
+	private static void DrawHalfGrid(Camera cam, Vector3 pivot, Vector3 tan, Vector3 bitan, float increment, int iterations, Color secondary, float alphaBump,
+		out Vector3[] vertices,
+		out Color[] colors,
+		out int[] indices, int offset)
 	{
 		Color primary = secondary;
 		primary.a += alphaBump;
@@ -176,74 +235,49 @@ public class pg_GridRenderer
 		iterations++;
 
 		// this could only use 3 verts per line
-		#if !UNITY_3
 		float fade = .75f;
 		float fadeDist = len * fade;
-		Vector3[] lines = new Vector3[iterations*6-3];
-		int[] indices = new int[iterations*8-4];
-		Color[] colors = new Color[iterations*6-3];
-		#endif
 
-		// Draw Axis lines
-		{
-			#if !UNITY_3
-			lines[0] = pivot;
-			lines[1] = (pivot + bitan*fadeDist);
-			lines[2] = (pivot + bitan*len);
+		vertices = new Vector3[iterations*6-3];
+		indices = new int[iterations*8-4];
+		colors = new Color[iterations*6-3];
 
-			indices[0] = 0;
-			indices[1] = 1;
-			indices[2] = 1;
-			indices[3] = 2;
-			
-			colors[0] = primary;
-			colors[1] = primary;
-			colors[2] = primary;
-			colors[2].a = 0f;
-			
-			#else
-				Handles.color = primary;
-				Handles.DrawLine( 
-					pivot, (pivot + bitan*len));
-			#endif
-		}
+		vertices[0] = pivot;
+		vertices[1] = (pivot + bitan*fadeDist);
+		vertices[2] = (pivot + bitan*len);
 
-		#if !UNITY_3
+		indices[0] = 0 + offset;
+		indices[1] = 1 + offset;
+		indices[2] = 1 + offset;
+		indices[3] = 2 + offset;
+		
+		colors[0] = primary;
+		colors[1] = primary;
+		colors[2] = primary;
+		colors[2].a = 0f;
+
 		int n = 4;
 		int v = 3;
-		#endif
+
 		for(int i = 1; i < iterations; i++)
 		{
-			#if UNITY_3
-				Handles.color = (i+highlightOffsetTan) % 10 == 0 ? primary : secondary;
-				Handles.DrawLine( 
-					pivot + i * tan * increment,
-					(pivot + bitan*len) + i * tan * increment );
-
-				Handles.color = (i+highlightOffsetBitan) % 10 == 0 ? primary : secondary;
-				Handles.DrawLine( 
-					pivot + i * bitan * increment,
-					(pivot + tan*len) + i * bitan * increment);
-
-			#else
-
 			// MeshTopology doesn't exist prior to Unity 4
-			lines[v+0] = pivot + i * tan * increment;
-			lines[v+1] = (pivot + bitan*fadeDist) + i * tan * increment;
-			lines[v+2] = (pivot + bitan*len) + i * tan * increment;
+			vertices[v+0] = pivot + i * tan * increment;
+			vertices[v+1] = (pivot + bitan*fadeDist) + i * tan * increment;
+			vertices[v+2] = (pivot + bitan*len) + i * tan * increment;
 
-			lines[v+3] = pivot + i * bitan * increment;
-			lines[v+4] = (pivot + tan*fadeDist) + i * bitan * increment;
-			lines[v+5] = (pivot + tan*len) + i * bitan * increment;
-	
-			indices[n+0] = v+0;
-			indices[n+1] = v+1;
-			indices[n+2] = v+1;
-			indices[n+3] = v+2;
-			indices[n+4] = v+3;
-			indices[n+5] = v+4;
-			indices[n+6] = v+4;
-			indices[n+7] = v+5;
+			vertices[v+3] = pivot + i * bitan * increment;
+			vertices[v+4] = (pivot + tan*fadeDist) + i * bitan * increment;
+			vertices[v+5] = (pivot + tan*len) + i * bitan * increment;
+
+			indices[n+0] = v + 0 + offset;
+			indices[n+1] = v + 1 + offset;
+			indices[n+2] = v + 1 + offset;
+			indices[n+3] = v + 2 + offset;
+			indices[n+4] = v + 3 + offset;
+			indices[n+5] = v + 4 + offset;
+			indices[n+6] = v + 4 + offset;
+			indices[n+7] = v + 5 + offset;
 
 			float alpha = (i/(float)iterations);
 			alpha = alpha < fade ? 1f : 1f - ( (alpha-fade)/(1-fade) );
@@ -266,27 +300,13 @@ public class pg_GridRenderer
 
 			n += 8;
 			v += 6;
-
-			#endif
 		}
-
-		#if !UNITY_3
-		Mesh gridMesh = new Mesh();
-		gridMesh.Clear();
-		gridMesh.vertices = lines;
-		gridMesh.subMeshCount = 1;
-		gridMesh.uv = new Vector2[lines.Length];
-		gridMesh.colors = colors;
-		gridMesh.SetIndices(indices, MeshTopology.Lines, 0);
-		perspectiveGridMaterial.SetPass(0);
-		Graphics.DrawMeshNow(gridMesh, Vector3.zero, Quaternion.identity);
-		#endif
 	}
 
 	/**
 	 * Draws a plane grid using pivot point, the right and forward directions, and how far each direction should extend
 	 */
-	private static void DrawFullGrid(Vector3 pivot, Vector3 tan, Vector3 bitan, float increment, int iterations, int div, Color secondary, float alphaBump)
+	private static void DrawFullGrid(Camera cam, Vector3 pivot, Vector3 tan, Vector3 bitan, float increment, int iterations, int div, Color secondary, float alphaBump)
 	{
 		Color primary = secondary;
 		primary.a += alphaBump;
@@ -294,14 +314,6 @@ public class pg_GridRenderer
 		float len = iterations * increment;
 
 		iterations++;
-
-		#if !UNITY_3
-		float fade = .8f;
-		Vector3[] lines = new Vector3[iterations*8];
-		int[] indices = new int[iterations*12];
-		Color[] colors = new Color[iterations*8];
-		int v = 0, t = 0;
-		#endif
 
 		Vector3 start = pivot - tan*(len/2f) - bitan*(len/2f);
 		start = pg_Util.SnapValue(start, bitan+tan, increment);
@@ -311,88 +323,92 @@ public class pg_GridRenderer
 		int highlightOffsetBitan = (int)((pg_Util.ValueFromMask(start, bitan) % (inc*10f)) / inc);
 
 
+		float fade = .8f;
+		Vector3[] lines = new Vector3[iterations*8];
+		int[] indices = new int[iterations*12];
+		Color[] colors = new Color[iterations*8];
+		int v = 0, t = 0;
+
 		for(int i = 0; i < iterations; i++)
 		{
 			Vector3 a = start + tan*i*increment;
 			Vector3 b = start + bitan*i*increment;
+			
+			lines[v+0] = a;
+			lines[v+1] = a + (bitan*(1f-fade)*len);
+			lines[v+2] = a + (bitan*fade*len);
+			lines[v+3] = a + bitan*len;
+			
+			lines[v+4] = b;
+			lines[v+5] = b + (tan*(1f-fade)*len);
+			lines[v+6] = b + (tan*fade*len);
+			lines[v+7] = b + tan*len;
+			
+			indices[t+0] = v;
+			indices[t+1] = v+1;
+			indices[t+2] = v+1;
+			indices[t+3] = v+2;
+			indices[t+4] = v+2;
+			indices[t+5] = v+3;
 
-			#if UNITY_3
-				Handles.color = (i+highlightOffsetTan) % 10 == 0 ? primary : secondary;
-				Handles.DrawLine(a, a + bitan * len );
-				Handles.color = (i+highlightOffsetBitan) % 10 == 0 ? primary : secondary;
-				Handles.DrawLine(b, b + tan * len );
-			#else
+			indices[t+6] = v+4;
+			indices[t+7] = v+5;
+			indices[t+8] = v+5;
+			indices[t+9] = v+6;
+			indices[t+10] = v+6;
+			indices[t+11] = v+7;
 
-				lines[v+0] = a;
-				lines[v+1] = a + (bitan*(1f-fade)*len);
-				lines[v+2] = a + (bitan*fade*len);
-				lines[v+3] = a + bitan*len;
-				
-				lines[v+4] = b;
-				lines[v+5] = b + (tan*(1f-fade)*len);
-				lines[v+6] = b + (tan*fade*len);
-				lines[v+7] = b + tan*len;
-				
-				indices[t+0] = v;
-				indices[t+1] = v+1;
-				indices[t+2] = v+1;
-				indices[t+3] = v+2;
-				indices[t+4] = v+2;
-				indices[t+5] = v+3;
+			int h = iterations/2;
+			float alpha = Mathf.Abs(h-i) / (float)h;
+			alpha = alpha < fade ? 1f : 1f - ( (alpha-fade)/(1-fade) );
+			
+			Color col = (i+highlightOffsetTan) % 10 == 0 ? primary : secondary;
+			col.a *= alpha;
+			
+			// tan
+			colors[v+0] = col;
+			colors[v+0].a = 0f;
+			colors[v+1] = col;
 
-				indices[t+6] = v+4;
-				indices[t+7] = v+5;
-				indices[t+8] = v+5;
-				indices[t+9] = v+6;
-				indices[t+10] = v+6;
-				indices[t+11] = v+7;
+			colors[v+2] = col;
+			colors[v+3] = col;
+			colors[v+3].a = 0f;
 
-				int h = iterations/2;
-				float alpha = Mathf.Abs(h-i) / (float)h;
-				alpha = alpha < fade ? 1f : 1f - ( (alpha-fade)/(1-fade) );
-				
-				Color col = (i+highlightOffsetTan) % 10 == 0 ? primary : secondary;
-				col.a *= alpha;
-				
-				// tan
-				colors[v+0] = col;
-				colors[v+0].a = 0f;
-				colors[v+1] = col;
+			col = (i+highlightOffsetBitan) % 10 == 0 ? primary : secondary;
+			col.a *= alpha;
 
-				colors[v+2] = col;
-				colors[v+3] = col;
-				colors[v+3].a = 0f;
+			// bitan
+			colors[v+4] = col;
+			colors[v+4].a = 0f;
+			colors[v+5] = col;
 
-				col = (i+highlightOffsetBitan) % 10 == 0 ? primary : secondary;
-				col.a *= alpha;
+			colors[v+6] = col;
+			colors[v+7] = col;
+			colors[v+7].a = 0f;
 
-				// bitan
-				colors[v+4] = col;
-				colors[v+4].a = 0f;
-				colors[v+5] = col;
-
-				colors[v+6] = col;
-				colors[v+7] = col;
-				colors[v+7].a = 0f;
-
-				v += 8;
-				t += 12;
-			#endif
-
+			v += 8;
+			t += 12;
 		}
 
-		#if !UNITY_3
-		Mesh gridMesh = new Mesh();
 		gridMesh.Clear();
 		gridMesh.vertices = lines;
 		gridMesh.subMeshCount = 1;
 		gridMesh.uv = new Vector2[lines.Length];
 		gridMesh.colors = colors;
 		gridMesh.SetIndices(indices, MeshTopology.Lines, 0);
-		if ( perspectiveGridMaterial == null ) Init();
-		perspectiveGridMaterial.SetPass(0);
-		Graphics.DrawMeshNow(gridMesh, Vector3.zero, Quaternion.identity);
-		#endif
+		// else
+		// {
+		// 	for(int i = 0; i < iterations; i++)
+		// 	{
+		// 		Vector3 a = start + tan*i*increment;
+		// 		Vector3 b = start + bitan*i*increment;
+
+		// 		Handles.color = (i+highlightOffsetTan) % 10 == 0 ? primary : secondary;
+		// 		Handles.DrawLine(a, a + bitan * len );
+		// 		Handles.color = (i+highlightOffsetBitan) % 10 == 0 ? primary : secondary;
+		// 		Handles.DrawLine(b, b + tan * len );
+		// 	}			
+		// }
 	}
 
 	/**

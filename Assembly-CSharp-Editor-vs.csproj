@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{6B523A75-C03B-54E4-5AD5-8AE66A8F8E10}</ProjectGuid>
+	<ProjectGuid>{4CFA2BE6-427C-4A4E-7DD0-FA03EBEA60E7}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -46,73 +46,108 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Actions\DeleteNoDrawFaces.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Actions\ExportObj.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Actions\MakeAsset.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Actions\ProBuilderizeGameObject.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Actions\StripProBuilderScripts.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Geometry\Bridge.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Geometry\ConnectEdges.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Geometry\DetachDeleteFace.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Geometry\ExtrudeFace.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Geometry\FlipFaces.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Geometry\PivotTool.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Geometry\VertexMergeWeld.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Repair\CleanUpLeakedMeshes.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Repair\ComponentCheck.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Repair\DegenerateTris.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Repair\FixGameObjectFlags.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Repair\ForceMeshRefresh.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Repair\RebuildSharedIndices.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Repair\SetProjectionAxis.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Selection\EdgeSelection.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Selection\ExpandSelection.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Selection\InvertSelection.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Tools\AutoNodraw.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Tools\ProjectNodrawUtil.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\MenuItems\Tools\SelectFacesWithMaterial.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\ProBuilderMenuItems.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\pb_About.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Editor\pb_Preferences.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\Install\Editor\QuickStart.cs" />
-     <Compile Include="Assets\6by7\ProGrids\Editor\pg_Constant.cs" />
-     <Compile Include="Assets\6by7\ProGrids\Editor\pg_Editor.cs" />
-     <Compile Include="Assets\6by7\ProGrids\Editor\pg_Preferences.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_ExportObj.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_GenerateUV2.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_MakeMeshAsset.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_ProBuilderize.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_StripProBuilderScripts.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\File\pb_SaveLoad.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_BridgeEdges.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_ConformNormals.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_ConnectEdges.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_DetachDeleteFace.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_ExtrudeElement.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_FlipNormals.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_FreezeTransform.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_MergeFaces.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_SetPivot.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_Triangulate.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_VertexMergeWeld.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_CleanLeakedMeshes.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_ForceSceneRefresh.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_RemoveDegenerateTris.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_RepairUV.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Selection\pb_EdgeSelection.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Selection\pb_ExpandSelection.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Selection\pb_InvertSelection.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Selection\pb_MaterialSelection.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Tools\pb_BooleanInterface.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Tools\pb_MaterialSelectionTool.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Tools\pb_VertexPainter.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Window\pb_ProBuilderMenuItems.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_MenuItems.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_MissingScriptEditor.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_Preferences.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_ScenePostProcessor.cs" />
+     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_Constant.cs" />
+     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_Editor.cs" />
      <Compile Include="Assets\ProCore\ProGrids\Editor\pg_GridRenderer.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\Editor\qb_About.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\Editor\qb_Help.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\Editor\qb_Painter.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\Editor\qb_Window.cs" />
-     <Compile Include="Assets\ProCore\QuickDecals\Scripts\Editor\QuickDecals.cs" />
-     <None Include="Assets\ProCore\ProGrids\Shader\PerspectiveGrid.shader" />
-     <None Include="Assets\6by7\ProBuilder\changelog.txt" />
-     <None Include="Assets\6by7\ProBuilder\Shader\VertexBillboard.shader" />
-     <None Include="Assets\6by7\ProBuilder\Shader\DiffuseVertexColor.shader" />
-     <None Include="Assets\6by7\ProBuilder\Shader\DiffuseVertexColorTransparency.shader" />
-     <None Include="Assets\6by7\ProGrids\VersionInfo.txt" />
-     <None Include="Assets\6by7\ProBuilder\VersionInfo.txt" />
-     <None Include="Assets\6by7\ProBuilder\Shader\UnlitColor.shader" />
-     <None Include="Assets\6by7\ProBuilder\API Examples\Instantiation\README.txt" />
-     <None Include="Assets\6by7\ProBuilder\Shader\UnlitColor-Overlay.shader" />
-     <None Include="Assets\6by7\ProBuilder\Shader\DiffuseVertexColorEmission.shader" />
-     <None Include="Assets\6by7\ProBuilder\Credits.txt" />
+     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_Preferences.cs" />
+     <Compile Include="Assets\ProCore\ProGroups\Scripts\Editor\ProGroups_About.cs" />
+     <Compile Include="Assets\ProCore\ProGroups\Scripts\Editor\ProGroups_Window.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Classes\qb_Point.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Classes\qb_PrefabObject.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Classes\qb_RaycastResult.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Classes\qb_Stroke.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Classes\qb_Template.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Classes\qb_TemplateSignature.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Classes\qb_Utility.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Classes\qb_UtilityObject.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Windows\qb_About.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Windows\qb_Help.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Windows\qb_Painter.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\Editor\Windows\qb_Window.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Editor\qd_Decal_Editor.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Editor\qd_Editor.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Editor\qd_Preferences.cs" />
+     <Compile Include="Assets\ProCore\QuickEdit\Scripts\Editor\QuickEdit_About.cs" />
+     <Compile Include="Assets\ProCore\Shared\About\Editor\groups_AboutWindow.cs" />
+     <Compile Include="Assets\ProCore\Shared\About\Editor\pb_AboutWindow.cs" />
+     <Compile Include="Assets\ProCore\Shared\About\Editor\pg_AboutWindow.cs" />
+     <Compile Include="Assets\ProCore\Shared\About\Editor\qd_AboutWindow.cs" />
+     <Compile Include="Assets\ProCore\Shared\About\Editor\qe_AboutWindow.cs" />
+     <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
+     <None Include="Assets\ProCore\QuickEdit\About\pc_AboutEntry_QuickEdit.txt" />
+     <None Include="Assets\ProCore\ProBuilder\About\changelog.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseVertexColor.shader" />
+     <None Include="Assets\ProCore\ProGroups\About\changelog.txt" />
+     <None Include="Assets\ProCore\Shared\About\README.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseVertexColorTransparency.shader" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\pb_FaceHighlight.shader" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\UnlitSolidColor.shader" />
+     <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
+     <None Include="Assets\ProCore\QuickEdit\About\changelog.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseTextureBlend.shader" />
+     <None Include="Assets\ProCore\Shared\About\README 1.txt" />
+     <None Include="Assets\ProCore\ProGroups\About\pc_AboutEntry_ProGroups.txt" />
+     <None Include="Assets\ProCore\QuickBrush\Docs\ChangeLog.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\pb_UnlitVertexColor.shader" />
+     <None Include="Assets\ProCore\QuickDecals\About\changelog.txt" />
+     <None Include="Assets\ProCore\QuickDecals\About\pc_AboutEntry_QuickDecals.txt" />
+     <None Include="Assets\ProCore\ProBuilder\About\pc_AboutEntry_ProBuilder.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\pb_VertexShader.shader" />
+     <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
+     <None Include="Assets\ProCore\_README_PROBUILDER.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseVertexColorEmission.shader" />
+     <None Include="Assets\ProCore\Shared\About\README 2.txt" />
+     <None Include="Assets\ProCore\ProBuilder\About\Credits.txt" />
  <Reference Include="Assembly-UnityScript">
- <HintPath>E:/Chroma/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ <HintPath>E:/Chromatis/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>F:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
- <Reference Include="ProBuilderCore">
- <HintPath>E:/Chroma/Assets/6by7/ProBuilder/Classes/ProBuilderCore.dll</HintPath>
+ <Reference Include="ProBuilderCore-Unity5">
+ <HintPath>E:/Chromatis/Assets/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
  </Reference>
- <Reference Include="SixBySeven">
- <HintPath>E:/Chroma/Assets/6by7/Shared/Code/SixBySeven.dll</HintPath>
+ <Reference Include="ProBuilderMeshOps-Unity5">
+ <HintPath>E:/Chromatis/Assets/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
+ </Reference>
+ <Reference Include="ProCore 1">
+ <HintPath>E:/Chromatis/Assets/ProCore/Shared/Code/ProCore 1.dll</HintPath>
  </Reference>
  <Reference Include="ProCore">
- <HintPath>E:/Chroma/Assets/ProCore/Shared/Code/ProCore.dll</HintPath>
- </Reference>
- <Reference Include="SixBySeven">
- <HintPath>E:/Chroma/Assets/ProCore/Shared/Code/SixBySeven.dll</HintPath>
+ <HintPath>E:/Chromatis/Assets/ProCore/Shared/Code/ProCore.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>F:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -147,7 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-vs.csproj">
-      <Project>{C839773A-7867-E548-ADAA-59715913136E}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
+      <Project>{C53D49E9-EAAD-F92C-FDBB-ADC5F9BA28B5}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

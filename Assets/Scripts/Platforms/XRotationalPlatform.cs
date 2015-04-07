@@ -54,7 +54,5 @@ public class XRotationalPlatform : Platform
 			break;
 		}
 	}
-
-	public override bool HasNeutralGravity { get { return hasNeutralGravity; } }
 }
 

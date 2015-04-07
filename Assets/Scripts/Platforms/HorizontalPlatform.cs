@@ -62,7 +62,6 @@ public class HorizontalPlatform : Platform
 			break;
 		}
 	}
-	public override bool HasNeutralGravity { get { return hasNeutralGravity; } }
 
 
 }

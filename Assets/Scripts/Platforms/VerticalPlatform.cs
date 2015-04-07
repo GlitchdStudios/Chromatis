@@ -48,7 +48,6 @@ public class VerticalPlatform : Platform
 			break;
 		}
 	}
-	public override bool HasNeutralGravity { get { return hasNeutralGravity; } }
 	
 	
 	void OnTriggerEnter(Collider col)

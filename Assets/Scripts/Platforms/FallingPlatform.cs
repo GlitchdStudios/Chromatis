@@ -13,6 +13,5 @@ public class FallingPlatform : MonoBehaviour
 	}
 
 	public void MovePlatform(Switch _switch) { }
-	//public bool HasNeutralGravity { get { return hasNeutralGravity; } }
 }
 

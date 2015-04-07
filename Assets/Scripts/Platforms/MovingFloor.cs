@@ -39,7 +39,5 @@ public class MovingFloor : MonoBehaviour
 	{
 		MovePlayer(col);
 	}
-
-	public bool HasNeutralGravity { get { return hasNeutralGravity; } }
 }
 

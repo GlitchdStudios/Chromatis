@@ -56,7 +56,5 @@ public class YRotationalPlatform : Platform
 			col.transform.parent = null;
 		}
 	}
-
-	public override bool HasNeutralGravity { get { return hasNeutralGravity; } }
 }
 

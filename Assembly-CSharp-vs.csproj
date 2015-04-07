@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{C839773A-7867-E548-ADAA-59715913136E}</ProjectGuid>
+	<ProjectGuid>{C53D49E9-EAAD-F92C-FDBB-ADC5F9BA28B5}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -46,22 +46,34 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\6by7\ProBuilder\API Examples\Instantiation\ProBuilderInstantiate.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\API Examples\Runtime Editing\Materials\pb_Selection.cs" />
-     <Compile Include="Assets\6by7\ProBuilder\API Examples\Runtime Editing\RuntimeEdit.cs" />
-     <Compile Include="Assets\6by7\ProGrids\Classes\pg_Util.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\QuickBrushClasses\qb_Group.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\QuickBrushClasses\qb_Object.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\QuickBrushClasses\qb_ObjectContainer.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\QuickBrushClasses\qb_Point.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\QuickBrushClasses\qb_PrefabObject.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\QuickBrushClasses\qb_RaycastResult.cs" />
-     <Compile Include="Assets\ProCore\QuickBrush\QuickBrushClasses\qb_Stroke.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Instantiation\ProBuilderInstantiate.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />
+     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Runtime Editing\RuntimeEdit.cs" />
+     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
+     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
+     <Compile Include="Assets\ProCore\ProGroups\Scripts\InScene\GroupContainer.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\InSceneClasses\qb_Group.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\InSceneClasses\qb_Object.cs" />
+     <Compile Include="Assets\ProCore\QuickBrush\InSceneClasses\qb_ObjectContainer.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\Decal.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\DecalGroup.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\qdUtil.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\qd_ArrayUtility.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\qd_Constant.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\qd_Database.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\qd_Decal.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\qd_DecalDebug.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\qd_Enum.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\qd_Mesh.cs" />
+     <Compile Include="Assets\ProCore\QuickDecals\Classes\qd_Undo.cs" />
      <Compile Include="Assets\Scripts\General Scripts\Checkpoint.cs" />
      <Compile Include="Assets\Scripts\General Scripts\DeathTrigger.cs" />
      <Compile Include="Assets\Scripts\General Scripts\GeneralControls.cs" />
      <Compile Include="Assets\Scripts\General Scripts\ScrollingTexture.cs" />
      <Compile Include="Assets\Scripts\General Scripts\Toolbox.cs" />
+     <Compile Include="Assets\Scripts\Level Scripts\Area2\Level.cs" />
+     <Compile Include="Assets\Scripts\Level Scripts\Area2\Tower.cs" />
+     <Compile Include="Assets\Scripts\Level Scripts\Area2\TowerManager.cs" />
      <Compile Include="Assets\Scripts\Level Scripts\GeneralRotation.cs" />
      <Compile Include="Assets\Scripts\Level Scripts\ParentTrigger.cs" />
      <Compile Include="Assets\Scripts\Platforms\FallingPlatform.cs" />
@@ -91,32 +103,45 @@
      <Compile Include="Assets\Scripts\Utility\DataSphereSlot.cs" />
      <Compile Include="Assets\Scripts\Utility\Switch.cs" />
      <Compile Include="Assets\Scripts\Utility\Utility_BaseClass\Utility.cs" />
-     <None Include="Assets\ProCore\ProGrids\Shader\PerspectiveGrid.shader" />
-     <None Include="Assets\6by7\ProBuilder\changelog.txt" />
-     <None Include="Assets\6by7\ProBuilder\Shader\VertexBillboard.shader" />
-     <None Include="Assets\6by7\ProBuilder\Shader\DiffuseVertexColor.shader" />
-     <None Include="Assets\6by7\ProBuilder\Shader\DiffuseVertexColorTransparency.shader" />
-     <None Include="Assets\6by7\ProGrids\VersionInfo.txt" />
-     <None Include="Assets\6by7\ProBuilder\VersionInfo.txt" />
-     <None Include="Assets\6by7\ProBuilder\Shader\UnlitColor.shader" />
-     <None Include="Assets\6by7\ProBuilder\API Examples\Instantiation\README.txt" />
-     <None Include="Assets\6by7\ProBuilder\Shader\UnlitColor-Overlay.shader" />
-     <None Include="Assets\6by7\ProBuilder\Shader\DiffuseVertexColorEmission.shader" />
-     <None Include="Assets\6by7\ProBuilder\Credits.txt" />
+     <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
+     <None Include="Assets\ProCore\QuickEdit\About\pc_AboutEntry_QuickEdit.txt" />
+     <None Include="Assets\ProCore\ProBuilder\About\changelog.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseVertexColor.shader" />
+     <None Include="Assets\ProCore\ProGroups\About\changelog.txt" />
+     <None Include="Assets\ProCore\Shared\About\README.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseVertexColorTransparency.shader" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\pb_FaceHighlight.shader" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\UnlitSolidColor.shader" />
+     <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
+     <None Include="Assets\ProCore\QuickEdit\About\changelog.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseTextureBlend.shader" />
+     <None Include="Assets\ProCore\Shared\About\README 1.txt" />
+     <None Include="Assets\ProCore\ProGroups\About\pc_AboutEntry_ProGroups.txt" />
+     <None Include="Assets\ProCore\QuickBrush\Docs\ChangeLog.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\pb_UnlitVertexColor.shader" />
+     <None Include="Assets\ProCore\QuickDecals\About\changelog.txt" />
+     <None Include="Assets\ProCore\QuickDecals\About\pc_AboutEntry_QuickDecals.txt" />
+     <None Include="Assets\ProCore\ProBuilder\About\pc_AboutEntry_ProBuilder.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\pb_VertexShader.shader" />
+     <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
+     <None Include="Assets\ProCore\_README_PROBUILDER.txt" />
+     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseVertexColorEmission.shader" />
+     <None Include="Assets\ProCore\Shared\About\README 2.txt" />
+     <None Include="Assets\ProCore\ProBuilder\About\Credits.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>F:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
- <Reference Include="ProBuilderCore">
- <HintPath>E:/Chroma/Assets/6by7/ProBuilder/Classes/ProBuilderCore.dll</HintPath>
+ <Reference Include="ProBuilderCore-Unity5">
+ <HintPath>E:/Chromatis/Assets/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
  </Reference>
- <Reference Include="SixBySeven">
- <HintPath>E:/Chroma/Assets/6by7/Shared/Code/SixBySeven.dll</HintPath>
+ <Reference Include="ProBuilderMeshOps-Unity5">
+ <HintPath>E:/Chromatis/Assets/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
+ </Reference>
+ <Reference Include="ProCore 1">
+ <HintPath>E:/Chromatis/Assets/ProCore/Shared/Code/ProCore 1.dll</HintPath>
  </Reference>
  <Reference Include="ProCore">
- <HintPath>E:/Chroma/Assets/ProCore/Shared/Code/ProCore.dll</HintPath>
- </Reference>
- <Reference Include="SixBySeven">
- <HintPath>E:/Chroma/Assets/ProCore/Shared/Code/SixBySeven.dll</HintPath>
+ <HintPath>E:/Chromatis/Assets/ProCore/Shared/Code/ProCore.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

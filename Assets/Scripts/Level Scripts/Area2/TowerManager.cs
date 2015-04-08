@@ -7,16 +7,16 @@ public class TowerManager : MonoBehaviour
 	public GameObject levelMid;
 	public GameObject levelBot;
 
-	private Level levelScrTop;
-	private Level levelScrMid;
-	private Level levelScrBot;
+	public static Level levelScrTop;
+	public static Level levelScrMid;
+	public static Level levelScrBot;
 
 	// Use this for initialization
 	void Start ()
 	{
-		levelScrTop = levelTop.GetComponent<Level>();
-		levelScrMid = levelMid.GetComponent<Level>();
-		levelScrBot = levelBot.GetComponent<Level>();
+		levelScrTop = levelTop.GetComponentInChildren<Level>();
+		levelScrMid = levelMid.GetComponentInChildren<Level>();
+		levelScrBot = levelBot.GetComponentInChildren<Level>();
 
 		Toolbox._towerB.AddLevel(levelScrBot);
 

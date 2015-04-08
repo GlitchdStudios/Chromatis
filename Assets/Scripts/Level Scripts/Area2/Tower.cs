@@ -8,6 +8,11 @@ public class Tower : MonoBehaviour
 	public SortedList<int, Level> Levels = new SortedList<int, Level>();
 	public int Index { get; set; }	
 
+	void Update()
+	{
+		Debug.Log(Levels.Count);
+	}
+
 	public bool IsEmpty()
 	{
 		return Levels.Count == 0;

@@ -9,12 +9,12 @@ public class Level : Platform
 	public LevelMovement levelTo;
 	public LevelMovement levelFrom;
 	public float speed;
-
-	public Tower ToTower { get; set; }
+	
 	public Tower FromTower { get; set; }
 
 	public int i;
 
+	public Switch _switch;
 	// Use this for initialization
 	void Start ()
 	{
@@ -25,9 +25,10 @@ public class Level : Platform
 //		{
 //			node[i].GetComponent<Renderer>().enabled = false;
 //		}
-		levelTo = LevelMovement.A;
+
 		initPlatformPos = thisTransform.position;
 		Index = 2;
+		SetDirection(platformSwitch[0]);
 	}
 	
 	void Update()
@@ -69,12 +70,15 @@ public class Level : Platform
 	}
 	public override void SetDirection(Switch _switch) 
 	{
+		levelTo = levelFrom;
+
 		switch(_switch.name)
 		{
 		case "SwitchA":
 			levelFrom = levelTo;
 			if(IsValid(FindCurTower(levelFrom), Toolbox._towerA))
 			{
+				Toolbox._towerA.AddLevel(TowerManager.levelScrTop);
 				levelTo = LevelMovement.A;
 			}
 			break;
@@ -83,7 +87,7 @@ public class Level : Platform
 			levelFrom = levelTo;
 			if(IsValid(FindCurTower(levelFrom), Toolbox._towerB))
 			{
-
+				Toolbox._towerB.AddLevel(TowerManager.levelScrMid);
 				levelTo = LevelMovement.B;
 			}
 			break;
@@ -92,6 +96,7 @@ public class Level : Platform
 			levelFrom = levelTo;
 			if(IsValid(FindCurTower(levelFrom), Toolbox._towerC))
 			{
+				Toolbox._towerC.AddLevel(TowerManager.levelScrBot);
 				levelTo = LevelMovement.C;
 			}
 			break;
@@ -108,7 +113,6 @@ public class Level : Platform
 			}
 
 			node[(int)levelTo + i].MoveToNode(thisTransform, node[(int)levelTo + i].transform, speed * Time.deltaTime);	
-			Debug.Log(levelTo);
 		} 
 	}
 

@@ -5,14 +5,38 @@ using System.Collections.Generic;
 
 public class Tower : MonoBehaviour
 {
+	public enum TowerLetter { A = 0, B, C }
+	public TowerLetter towerLetter;
 	public SortedList<int, Level> Levels = new SortedList<int, Level>();
+	public Node[] node;
 	public int Index { get; set; }	
+
+	void Start()
+	{
+		node = transform.GetComponentsInChildren<Node>();
+	}
 
 	void Update()
 	{
-		Debug.Log(Levels.Count);
-	}
+		if(towerLetter == TowerLetter.A)
+		{
+			if(Levels.Count != 0)
+				getTopLevel().MoveToTower();
+		}
 
+		else if(towerLetter == TowerLetter.B)
+		{
+			if(Levels.Count != 0)
+				getTopLevel().MoveToTower();
+		}
+
+		else if(towerLetter == TowerLetter.C)
+		{
+			if(Levels.Count != 0)
+				getTopLevel().MoveToTower();
+		}
+	}
+	
 	public bool IsEmpty()
 	{
 		return Levels.Count == 0;
@@ -30,7 +54,7 @@ public class Tower : MonoBehaviour
 			return true;
 		}
 
-		return getTopLevel().Index > level.Index;
+		return getTopLevel().index > level.index;
 	}
 
 	public Level getTopLevel()
@@ -52,7 +76,7 @@ public class Tower : MonoBehaviour
 	{
 		if(AllowLevel(level))
 		{
-			Levels.Add(level.Index, level);
+			Levels.Add(level.index, level);
 		}
 	}    
 }

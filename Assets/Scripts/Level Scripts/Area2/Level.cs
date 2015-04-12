@@ -1,44 +1,42 @@
 using UnityEngine;
+using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Level : Platform
+public class Level : BaseLevel
 {
-	public int Index { get; set; }
-	public enum LevelMovement {NO_MOVEMENT = -1, A = 0, B, C }
-	
-	public LevelMovement levelTo;
-	public LevelMovement levelFrom;
+	public int index;
+	public enum DestTower {NO_MOVEMENT = -1, A = 0, B, C }
+	public enum NodeControl { ZERO = 0, ONE}
+	public DestTower levelTo;
+	public DestTower levelFrom;
+	public NodeControl nodeControl;
 	public float speed;
 	
 	public Tower FromTower { get; set; }
-
+	public Tower ToTower { get; set; }
+	public int towerKey;
 	public int i;
-
-	public Switch _switch;
 	// Use this for initialization
 	void Start ()
 	{
 		thisTransform = transform;
 		platformSwitch = GetComponentsInChildren<Switch>();
-		node = thisTransform.parent.GetComponentsInChildren<Node>();
 //		for(int i=0; i < node.Length; i++)
 //		{
 //			node[i].GetComponent<Renderer>().enabled = false;
 //		}
 
 		initPlatformPos = thisTransform.position;
-		Index = 2;
-		SetDirection(platformSwitch[0]);
+		index = 2;
+		levelFrom = DestTower.B;
+		nodeControl = NodeControl.ZERO;
+		i = 0;
 	}
-	
-	void Update()
-	{
-		MoveToTower();
-	}
-	
+
 	public override void InitPlatform()
 	{
-		levelTo = LevelMovement.NO_MOVEMENT;
+		levelTo = DestTower.NO_MOVEMENT;
 		thisTransform.position = initPlatformPos;
 		for(int i = 0; i < platformSwitch.Length; i++)
 		{
@@ -49,55 +47,56 @@ public class Level : Platform
 		}
 	}
 
-	public Tower FindCurTower(LevelMovement curTower)
+	public Tower FindCurTower(DestTower curTower)
 	{
 		switch(curTower)
 		{
-		case LevelMovement.A:
+		case DestTower.A:
 			FromTower = Toolbox._towerA;
 			break;
 
-		case LevelMovement.B:
+		case DestTower.B:
 			FromTower = Toolbox._towerB;
 			break;
 
-		case LevelMovement.C:
+		case DestTower.C:
 			FromTower = Toolbox._towerC;
 			break;
 		}
 
 		return FromTower;
 	}
+
+
 	public override void SetDirection(Switch _switch) 
 	{
-		levelTo = levelFrom;
-
 		switch(_switch.name)
 		{
 		case "SwitchA":
-			levelFrom = levelTo;
 			if(IsValid(FindCurTower(levelFrom), Toolbox._towerA))
 			{
-				Toolbox._towerA.AddLevel(TowerManager.levelScrTop);
-				levelTo = LevelMovement.A;
+				levelFrom = levelTo;
+				ToTower = Toolbox._towerA;
+
+				levelTo = DestTower.A;
 			}
 			break;
 			
 		case "SwitchB":
-			levelFrom = levelTo;
 			if(IsValid(FindCurTower(levelFrom), Toolbox._towerB))
 			{
-				Toolbox._towerB.AddLevel(TowerManager.levelScrMid);
-				levelTo = LevelMovement.B;
+				levelFrom = levelTo;
+				ToTower = Toolbox._towerB;
+				levelTo = DestTower.B;
 			}
 			break;
 
 		case "SwitchC":
-			levelFrom = levelTo;
 			if(IsValid(FindCurTower(levelFrom), Toolbox._towerC))
 			{
-				Toolbox._towerC.AddLevel(TowerManager.levelScrBot);
-				levelTo = LevelMovement.C;
+				levelFrom = levelTo;
+				ToTower = Toolbox._towerC;
+				levelTo = DestTower.C;
 			}
 			break;
 		}
@@ -105,14 +104,48 @@ public class Level : Platform
 
 	public void MoveToTower() 
 	{
-		if(levelTo != LevelMovement.NO_MOVEMENT)
+		if(levelTo != DestTower.NO_MOVEMENT && FromTower != null && ToTower != null)
 		{
-			if(thisTransform.localPosition == node[(int)levelTo + i].transform.localPosition)
+			if(FromTower.getTopLevel() == this && ToTower.AllowLevel(this))
 			{
-				i++;
-			}
+				if(ToTower.Levels.Count > 0)
+				{
+					towerKey = ToTower.Levels.First().Key;
+				}
 
-			node[(int)levelTo + i].MoveToNode(thisTransform, node[(int)levelTo + i].transform, speed * Time.deltaTime);	
+				if(nodeControl == NodeControl.ZERO)
+				{
+					if(thisTransform.position != FromTower.node[0].transform.position)
+						FromTower.node[0].MoveToNodeWorld(thisTransform, FromTower.node[0].transform, speed * Time.deltaTime);
+					else
+					{
+						nodeControl = NodeControl.ONE;
+					}
+				}
+
+				else if(nodeControl == NodeControl.ONE)
+				{
+					if(ToTower.node[i] != null)
+					{
+						if(thisTransform.position != ToTower.node[i].transform.position)
+						{
+							ToTower.node[i].MoveToNodeWorld(thisTransform, ToTower.node[i].transform, speed * Time.deltaTime);
+						}
+						else
+						{
+							i++;
+						}
+						if(thisTransform.position == ToTower.node[3 - towerKey].transform.position)
+						{
+							i = 0;
+							nodeControl = NodeControl.ZERO;
+							levelTo = levelFrom;
+							FromTower.RemoveLevel();
+							ToTower.AddLevel(this);
+						}
+					}
+				}
+			}
 		} 
 	}
 

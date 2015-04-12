@@ -20,10 +20,10 @@ public class TowerManager : MonoBehaviour
 
 		Toolbox._towerB.AddLevel(levelScrBot);
 
-		levelScrMid.Index--;
+		levelScrMid.index = 1;
 		Toolbox._towerB.AddLevel(levelScrMid);
 
-		levelScrBot.Index--;
+		levelScrTop.index = 0;
 		Toolbox._towerB.AddLevel(levelScrTop);
 	}
 }

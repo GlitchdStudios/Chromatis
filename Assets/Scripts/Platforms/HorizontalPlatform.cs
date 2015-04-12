@@ -44,7 +44,7 @@ public class HorizontalPlatform : Platform
 	{
 		if(platformDirection != PlatformMovement.NO_MOVEMENT)
 		{
-			node[(int)platformDirection].MoveToNode(thisTransform, node[(int)platformDirection].transform, speed * Time.deltaTime);
+			node[(int)platformDirection].MoveToNodeLocal(thisTransform, node[(int)platformDirection].transform, speed * Time.deltaTime);
 		}
 	}
 

@@ -8,6 +8,8 @@ public class RayCastHandler : MonoBehaviour
 	private Vector3 direction;
 	private Vector3 curDirection;
 	private Switch switchScr;
+	private BaseLevel baseLevelScr;
+	private Platform platformScr;
 	private float startSpeed;
 	private float curDistance;
 	private float minDistance;
@@ -58,9 +60,23 @@ public class RayCastHandler : MonoBehaviour
 		{
 			switchScr = rayHit.collider.GetComponent<Switch>();
 
-			if(!switchScr.IsActive)
+			platformScr = switchScr.transform.parent.GetComponent<Platform>();
+			baseLevelScr = switchScr.transform.parent.GetComponent<BaseLevel>();
+
+			if(baseLevelScr != null)
 			{
-				switchScr.transform.parent.GetComponent<Platform>().SetDirection(switchScr);
+				if(!switchScr.IsActive)
+				{
+					baseLevelScr.SetDirection(switchScr);
+				}
+			}
+
+			if(platformScr != null)
+			{
+				if(!switchScr.IsActive)
+				{
+					platformScr.SetDirection(switchScr);
+				}
 			}
 		}
 	}

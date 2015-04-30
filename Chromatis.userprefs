@@ -1,11 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Level Scripts\Area2\TowerManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Level Scripts\Area2\Tower.cs">
     <Files>
       <File FileName="Assets\Scripts\Level Scripts\Area2\BaseLevel.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Level Scripts\Area2\Level.cs" Line="143" Column="10" />
-      <File FileName="Assets\Scripts\Level Scripts\Area2\Tower.cs" Line="75" Column="35" />
-      <File FileName="Assets\Scripts\Level Scripts\Area2\TowerManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Level Scripts\Area2\Level.cs" Line="151" Column="1" />
+      <File FileName="Assets\Scripts\Level Scripts\Area2\Tower.cs" Line="66" Column="1" />
+      <File FileName="Assets\Scripts\Level Scripts\Area2\TowerManager.cs" Line="26" Column="25" />
       <File FileName="Assets\Scripts\Platforms\Node\Node.cs" Line="1" Column="1" />
       <File FileName="e:\Chromatis\Assets\Scripts\Platforms\HorizontalPlatform.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Platforms\FallingPlatform.cs" Line="1" Column="1" />
@@ -22,9 +22,9 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="E:\Chromatis\Assets\Scripts\Level Scripts\Area2\Level.cs" line="113" />
-      <Breakpoint file="E:\Chromatis\Assets\Scripts\Level Scripts\Area2\Level.cs" line="144" />
-      <Breakpoint file="E:\Chromatis\Assets\Scripts\Level Scripts\Area2\Tower.cs" line="79" />
+      <Breakpoint file="E:\Chromatis\Assets\Scripts\Level Scripts\Area2\Level.cs" line="109" />
+      <Breakpoint file="E:\Chromatis\Assets\Scripts\Level Scripts\Area2\Level.cs" line="107" />
+      <Breakpoint file="E:\Chromatis\Assets\Scripts\Level Scripts\Area2\Tower.cs" line="66" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

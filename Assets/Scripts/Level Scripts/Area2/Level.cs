@@ -140,13 +140,20 @@ public class Level : BaseLevel
 							i = 0;
 							nodeControl = NodeControl.ZERO;
 							levelTo = levelFrom;
-							FromTower.RemoveLevel();
+							FromTower.RemoveLevel(this);
+							ListCleanup();
 							ToTower.AddLevel(this);
 						}
 					}
 				}
 			}
 		} 
+	}
+
+	public void ListCleanup()
+	{
+		FromTower.CurLevels = FromTower.Levels.Distinct().ToList();
+		FromTower.Levels = FromTower.CurLevels;
 	}
 
 	public bool IsValid(Tower from, Tower to)

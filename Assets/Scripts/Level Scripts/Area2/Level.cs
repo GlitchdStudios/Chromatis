@@ -110,7 +110,7 @@ public class Level : BaseLevel
 			{
 				if(ToTower.Levels.Count > 0)
 				{
-					towerKey = ToTower.Levels.First().Key;
+					towerKey = ToTower.Levels.Count;
 				}
 
 				if(nodeControl == NodeControl.ZERO)
@@ -139,21 +139,14 @@ public class Level : BaseLevel
 						{
 							i = 0;
 							nodeControl = NodeControl.ZERO;
-							levelTo = levelFrom;
+							levelFrom = levelTo;
 							FromTower.RemoveLevel(this);
-							ListCleanup();
 							ToTower.AddLevel(this);
 						}
 					}
 				}
 			}
 		} 
-	}
-
-	public void ListCleanup()
-	{
-		FromTower.CurLevels = FromTower.Levels.Distinct().ToList();
-		FromTower.Levels = FromTower.CurLevels;
 	}
 
 	public bool IsValid(Tower from, Tower to)

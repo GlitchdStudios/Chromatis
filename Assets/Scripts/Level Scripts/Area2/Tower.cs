@@ -7,8 +7,9 @@ public class Tower : MonoBehaviour
 {
 	public enum TowerLetter { A = 0, B, C }
 	public TowerLetter towerLetter;
-	public List<KeyValuePair<int, Level>> Levels = new List<KeyValuePair<int, Level>>();
-	public List<KeyValuePair<int, Level>> CurLevels = new List<KeyValuePair<int, Level>>();
+//	public List<KeyValuePair<int, Level>> Levels = new List<KeyValuePair<int, Level>>();
+//	public List<KeyValuePair<int, Level>> CurLevels = new List<KeyValuePair<int, Level>>();
+	public Stack Levels = new Stack();
 	public IEnumerable<int> noDupes;
 	public Node[] node;
 	public int Index { get; set; }	
@@ -63,7 +64,7 @@ public class Tower : MonoBehaviour
 	{
 		if(Levels.Count > 0)
 		{
-			return Levels.First().Value;
+			return (Level)Levels.Peek();
 		}
 
 		return null;
@@ -71,14 +72,14 @@ public class Tower : MonoBehaviour
 
 	public void RemoveLevel(Level level)
 	{
-		Levels.Remove(new KeyValuePair<int, Level>(Levels.First().Key, Levels.First().Value));
+		Levels.Pop();
 	}
 
 	public void AddLevel(Level level)
 	{
 		if(AllowLevel(level))
 		{
-			Levels.Add(new KeyValuePair<int, Level>(level.index, level));
+			Levels.Push(level);
 		}
 	}    
 }

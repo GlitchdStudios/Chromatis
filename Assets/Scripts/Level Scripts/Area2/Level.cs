@@ -142,6 +142,7 @@ public class Level : BaseLevel
 							levelFrom = levelTo;
 							FromTower.RemoveLevel(this);
 							ToTower.AddLevel(this);
+							towerKey = 0;
 						}
 					}
 				}

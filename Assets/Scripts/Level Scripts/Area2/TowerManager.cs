@@ -18,13 +18,13 @@ public class TowerManager : MonoBehaviour
 		levelScrMid = levelMid.GetComponentInChildren<Level>();
 		levelScrBot = levelBot.GetComponentInChildren<Level>();
 
-		Toolbox._towerB.AddLevel(levelScrBot);
+		A2Toolbox._towerB.AddLevel(levelScrBot);
 
 		levelScrMid.index = 1;
-		Toolbox._towerB.AddLevel(levelScrMid);
+		A2Toolbox._towerB.AddLevel(levelScrMid);
 
 		levelScrTop.index = 0;
-		Toolbox._towerB.AddLevel(levelScrTop);
+		A2Toolbox._towerB.AddLevel(levelScrTop);
 	}
 }
 

@@ -52,15 +52,15 @@ public class Level : BaseLevel
 		switch(curTower)
 		{
 		case DestTower.A:
-			FromTower = Toolbox._towerA;
+			FromTower = A2Toolbox._towerA;
 			break;
 
 		case DestTower.B:
-			FromTower = Toolbox._towerB;
+			FromTower = A2Toolbox._towerB;
 			break;
 
 		case DestTower.C:
-			FromTower = Toolbox._towerC;
+			FromTower = A2Toolbox._towerC;
 			break;
 		}
 
@@ -73,29 +73,29 @@ public class Level : BaseLevel
 		switch(_switch.name)
 		{
 		case "SwitchA":
-			if(IsValid(FindCurTower(levelFrom), Toolbox._towerA))
+			if(IsValid(FindCurTower(levelFrom), A2Toolbox._towerA))
 			{
 				levelFrom = levelTo;
-				ToTower = Toolbox._towerA;
+				ToTower = A2Toolbox._towerA;
 
 				levelTo = DestTower.A;
 			}
 			break;
 			
 		case "SwitchB":
-			if(IsValid(FindCurTower(levelFrom), Toolbox._towerB))
+			if(IsValid(FindCurTower(levelFrom), A2Toolbox._towerB))
 			{
 				levelFrom = levelTo;
-				ToTower = Toolbox._towerB;
+				ToTower = A2Toolbox._towerB;
 				levelTo = DestTower.B;
 			}
 			break;
 
 		case "SwitchC":
-			if(IsValid(FindCurTower(levelFrom), Toolbox._towerC))
+			if(IsValid(FindCurTower(levelFrom), A2Toolbox._towerC))
 			{
 				levelFrom = levelTo;
-				ToTower = Toolbox._towerC;
+				ToTower = A2Toolbox._towerC;
 				levelTo = DestTower.C;
 			}
 			break;
@@ -142,7 +142,6 @@ public class Level : BaseLevel
 							levelFrom = levelTo;
 							FromTower.RemoveLevel(this);
 							ToTower.AddLevel(this);
-							towerKey = 0;
 						}
 					}
 				}
@@ -152,11 +151,11 @@ public class Level : BaseLevel
 
 	public bool IsValid(Tower from, Tower to)
 	{
-		for(int i = 0; i < Toolbox.towers.Length; i++)
+		for(int i = 0; i < A2Toolbox.towers.Length; i++)
 		{
-			if(Toolbox.towers[i] == from)
+			if(A2Toolbox.towers[i] == from)
 			{
-				if(Toolbox.towers[i] == to)
+				if(A2Toolbox.towers[i] == to)
 				{
 					return false;
 				}

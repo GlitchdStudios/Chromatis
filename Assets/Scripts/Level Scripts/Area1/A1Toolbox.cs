@@ -3,6 +3,9 @@ using System.Collections;
 
 public class A1Toolbox: Toolbox
 {
+	public  GameObject tutTextObj;
+	public  static TutText tutTextScr;
+
 	void Awake () 
 	{
 		characterControls = playerObj.GetComponent<CharacterControls>();          
@@ -12,5 +15,6 @@ public class A1Toolbox: Toolbox
 		followTrans = followObj.transform;
 		generalGravityForce = 9.81f;
 		platforms =	FindObjectsOfType(typeof(Platform)) as Platform[];
+		tutTextScr = tutTextObj.GetComponent<TutText>();
 	}
 }

@@ -58,6 +58,7 @@
     <Compile Include="Assets\Scripts\General Scripts\Toolbox.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area1\A1Toolbox.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area1\BuildingAnimation.cs" />
+    <Compile Include="Assets\Scripts\Level Scripts\Area1\Tutorial.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area2\A2Toolbox.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area2\BaseLevel.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area2\Level.cs" />

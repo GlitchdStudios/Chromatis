@@ -42,12 +42,22 @@ public class TutText : MonoBehaviour
 	{
 		_text = new char[baseText.Length];
 		_text = baseText.ToCharArray();
+		textObj.text = "";
 
-		for(int i = 0; i < _text.Length; i++)
+		for(int i = 0; i <  _text.Length; i++)
 		{
 			yield return new WaitForSeconds(0.05f);
 			textObj.text += _text[i].ToString();
+			Debug.Log(i);
+			Debug.Log(_text.Length);
+			if((i + 1) == _text.Length)
+				A1Toolbox._tutImageObj.SetActive(true);
 		}
 	}	
+
+	public void CancelCoroutine()
+	{
+		StopAllCoroutines();
+	}
 }
 

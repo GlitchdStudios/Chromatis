@@ -50,7 +50,9 @@
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Runtime Editing\RuntimeEdit.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
-    <Compile Include="Assets\Scripts\GUI\TutText.cs" />
+    <Compile Include="Assets\Scripts\GUI\Tutorial\TutImage.cs" />
+    <Compile Include="Assets\Scripts\GUI\Tutorial\TutPanel.cs" />
+    <Compile Include="Assets\Scripts\GUI\Tutorial\TutText.cs" />
     <Compile Include="Assets\Scripts\General Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\General Scripts\DeathTrigger.cs" />
     <Compile Include="Assets\Scripts\General Scripts\GeneralControls.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="Assets\Scripts\General Scripts\Toolbox.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area1\A1Toolbox.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area1\BuildingAnimation.cs" />
+    <Compile Include="Assets\Scripts\Level Scripts\Area1\ParticleController.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area1\Tutorial.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area2\A2Toolbox.cs" />
     <Compile Include="Assets\Scripts\Level Scripts\Area2\BaseLevel.cs" />

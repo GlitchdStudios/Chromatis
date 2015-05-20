@@ -3,24 +3,22 @@ using System.Collections;
 
 public class ParticleController : MonoBehaviour
 {
-	public InstructionState instructionState;
 	public ParticleSystem particle;
 	void Start()
 	{
 		particle = GetComponent<ParticleSystem>();
 	}
 
-	public void Hide(InstructionState _instructionState)
+	public void Hide()
 	{
-		//if(instructionState == _instructionState)
 		particle.Stop();
-		particle.enableEmission = false;
+ 		particle.enableEmission = false;
 	}
 
-	public void Show(InstructionState _instructionState)
+	public void Show()
 	{
-		if(instructionState != _instructionState)
-			particle.enableEmission = true;
+		particle.Play();
+		particle.enableEmission = true;
 	}
 }
 

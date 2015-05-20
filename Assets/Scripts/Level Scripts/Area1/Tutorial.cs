@@ -11,7 +11,7 @@ public class Tutorial : MonoBehaviour
 		{
 			A1Toolbox.panelScr.instructionState = instructionState;
 			A1Toolbox.panelScr.ShowInstructions();
-			gameObject.GetComponentInChildren<ParticleController>().Hide(instructionState);
+			gameObject.GetComponentInChildren<ParticleController>().Hide();
 		}
 	}
 
@@ -20,7 +20,7 @@ public class Tutorial : MonoBehaviour
 		if(col.tag == "Player")
 		{
 			A1Toolbox.panelScr.CancelInstructions();
-			//gameObject.GetComponentInChildren<ParticleController>().Show(instructionState);
+			gameObject.GetComponentInChildren<ParticleController>().Show();
 		}
 	}
 }

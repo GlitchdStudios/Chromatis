@@ -55,7 +55,9 @@ public class TutText : MonoBehaviour
 
 	public void CancelCoroutine()
 	{
-		StopAllCoroutines();
+		if(textScr != null)
+			StopAllCoroutines();
+			textScr.text = "";
 	}
 }
 

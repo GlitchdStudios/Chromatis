@@ -5,7 +5,7 @@ public class TutPanel : MonoBehaviour
 {
 	public TutText tutText;
 	public TutImage tutImage;
-	public InstructionState instructionState { set; get; }
+	public InstructionState instructionState;
 
 	// Use this for initialization
 	void Start ()
@@ -31,7 +31,6 @@ public class TutPanel : MonoBehaviour
 	public void CancelInstructions()
 	{
 		tutText.CancelCoroutine();
-		tutImage.Clear();
 	}
 }
 

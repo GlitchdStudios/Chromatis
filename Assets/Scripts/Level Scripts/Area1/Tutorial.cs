@@ -23,5 +23,10 @@ public class Tutorial : MonoBehaviour
 			gameObject.GetComponentInChildren<ParticleController>().Show();
 		}
 	}
+
+	void OnDisable()
+	{
+		A1Toolbox.panelScr.CancelInstructions();
+	}
 }
 

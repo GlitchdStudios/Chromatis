@@ -14,7 +14,6 @@ public class DeathTrigger : MonoBehaviour
 	{
 		if(col.tag == "Player")
 		{
-			Toolbox.playerTransform.position = Toolbox.playerScr.initPos;
 			Toolbox.chromaState = Toolbox.initChromaState;
 			Toolbox.chroma[(int)Toolbox.chromaState].SetActive(true);
 
@@ -24,8 +23,7 @@ public class DeathTrigger : MonoBehaviour
 			}
 
 			InitPlatformsOnDeath();
-			Toolbox.playerTransform.GetComponent<Rigidbody>().Sleep();
-			Toolbox.characterControls.Gravity = Vector3.down * Toolbox.generalGravityForce;
+			A1Toolbox.playerScr.InitPlayer();
 		}
 
 		if(col.tag == "DataSphere")

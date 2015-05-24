@@ -10,6 +10,8 @@ public class DataSphere : Utility
 	public DataState thisDataState;
 	public ChromaState initChroma;
 	public Vector3 initPos;
+	public ParticleSystem a;
+	public ParticleSystem b;
 
 	// Use this for initialization
 	void Start ()
@@ -18,14 +20,6 @@ public class DataSphere : Utility
 		initPos = this.transform.position;
 		initChroma = ChromaState.RED;
 	}
-
-
-	// Update is called once per frame
-	void Update ()
-	{
-		
-	}
-
 
 	public void SetupDataSphere(ChromaState _chromaSlotState)
 	{

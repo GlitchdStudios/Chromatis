@@ -120,6 +120,7 @@ public class RayCastHandler : MonoBehaviour
 
 	 	direction = (Toolbox.followTrans.position - hitObject.position).normalized;
 		hitObject.velocity = direction * speed;
+		hitObject.rotation = A1Toolbox.playerTransform.rotation;
 	}
 
 	public void DropObject(Vector3 origin, Vector3 direction)

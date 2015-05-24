@@ -10,6 +10,7 @@ public class Checkpoint : MonoBehaviour
 		if(col.tag == "Player")
 		{
 			col.GetComponent<Player>().initPos = this.transform.position;
+			col.GetComponent<Player>().initGravity = Toolbox.characterControls.Gravity;
 			InitPlatformPosition();
 			Toolbox.initChromaState = _chromaState;
 		}

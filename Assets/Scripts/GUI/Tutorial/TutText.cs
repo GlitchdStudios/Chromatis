@@ -34,6 +34,10 @@ public class TutText : MonoBehaviour
 		case InstructionState.GRAVITY:
 			StartCoroutine(ChangeText(">  To change gravity, point your crosshair at the surface you want to walk on and press:  "));
 			break;
+
+		case InstructionState.PICKUP:
+			StartCoroutine(ChangeText(">  To pick up the DataSphere, press:  "));
+			break;
 		}
 	}
 
@@ -56,8 +60,10 @@ public class TutText : MonoBehaviour
 	public void CancelCoroutine()
 	{
 		if(textScr != null)
+		{
 			StopAllCoroutines();
 			textScr.text = "";
+		}
 	}
 }
 

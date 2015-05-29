@@ -15,9 +15,8 @@ public class pb_Preferences
 	static Color pbDefaultFaceColor;
 	static Color pbDefaultEdgeColor;
 	static Color pbDefaultSelectedVertexColor;
-	static Color pbDefaultVertexColor;
 	static bool defaultOpenInDockableWindow;
-	static Material _defaultMaterial;
+	static Material pbDefaultMaterial;
 	static Vector2 settingsScroll = Vector2.zero;
 	static int defaultColliderType = 2;
 	static bool pbShowEditorNotifications;
@@ -53,6 +52,8 @@ public class pb_Preferences
 		
 		settingsScroll = EditorGUILayout.BeginScrollView(settingsScroll, GUILayout.MaxHeight(200));
 
+		EditorGUI.BeginChangeCheck();
+
 		/**
 		 * GENERAL SETTINGS
 		 */
@@ -63,9 +64,7 @@ public class pb_Preferences
 		pbShowSceneInfo = EditorGUILayout.Toggle(new GUIContent("Show Scene Info", "Displays the selected object vertex and triangle counts in the scene view."), pbShowSceneInfo);
 		pbEnableBackfaceSelection = EditorGUILayout.Toggle(new GUIContent("Enable Back-face Selection", "If enabled, you may select faces that have been culled by their back face."), pbEnableBackfaceSelection);
 
-		// pbDefaultSelectionMode = (SelectMode)EditorGUILayout.EnumPopup("Default Selection Mode", pbDefaultSelectionMode);
-
-		_defaultMaterial = (Material) EditorGUILayout.ObjectField("Default Material", _defaultMaterial, typeof(Material), false);
+		pbDefaultMaterial = (Material) EditorGUILayout.ObjectField("Default Material", pbDefaultMaterial, typeof(Material), false);
 		defaultOpenInDockableWindow = EditorGUILayout.Toggle("Open in Dockable Window", defaultOpenInDockableWindow);
 
 		GUILayout.BeginHorizontal();
@@ -91,9 +90,8 @@ public class pb_Preferences
 
 		pbDefaultFaceColor = EditorGUILayout.ColorField("Selected Face Color", pbDefaultFaceColor);
 		pbDefaultEdgeColor = EditorGUILayout.ColorField("Edge Wireframe Color", pbDefaultEdgeColor);
-		pbDefaultVertexColor = EditorGUILayout.ColorField("Vertex Color", pbDefaultVertexColor);
 		pbDefaultSelectedVertexColor = EditorGUILayout.ColorField("Selected Vertex Color", pbDefaultSelectedVertexColor);
-		pbVertexHandleSize = EditorGUILayout.FloatField("Vertex Handle Size", pbVertexHandleSize);
+		pbVertexHandleSize = EditorGUILayout.Slider("Vertex Handle Size", pbVertexHandleSize, 0f, 1f);
 		pbForceVertexPivot = EditorGUILayout.Toggle(new GUIContent("Force Pivot to Vertex Point", "If true, new objects will automatically have their pivot point set to a vertex instead of the center."), pbForceVertexPivot);
 		pbForceGridPivot = EditorGUILayout.Toggle(new GUIContent("Force Pivot to Grid", "If true, newly instantiated pb_Objects will be snapped to the nearest point on grid.  If ProGrids is present, the snap value will be used, otherwise decimals are simply rounded to whole numbers."), pbForceGridPivot);
 		pbManifoldEdgeExtrusion = EditorGUILayout.Toggle(new GUIContent("Manifold Edge Extrusion", "If false, only edges non-manifold edges may be extruded.  If true, you may extrude any edge you like (for those who like to live dangerously)."), pbManifoldEdgeExtrusion);
@@ -122,7 +120,7 @@ public class pb_Preferences
 		ShortcutEditPanel();
 
 		// Save the preferences
-		if (GUI.changed)
+		if (EditorGUI.EndChangeCheck())
 			SetPrefs();
 	}
 
@@ -150,7 +148,6 @@ public class pb_Preferences
 			EditorPrefs.DeleteKey(pb_Constant.pbManifoldEdgeExtrusion);
 			EditorPrefs.DeleteKey(pb_Constant.pbPerimeterEdgeBridgeOnly);
 			EditorPrefs.DeleteKey(pb_Constant.pbDefaultSelectedVertexColor);
-			EditorPrefs.DeleteKey(pb_Constant.pbDefaultVertexColor);
 			EditorPrefs.DeleteKey(pb_Constant.pbVertexHandleSize);
 			EditorPrefs.DeleteKey(pb_Constant.pbPBOSelectionOnly);
 			EditorPrefs.DeleteKey(pb_Constant.pbCloseShapeWindow);
@@ -254,7 +251,6 @@ public class pb_Preferences
 		pbDefaultEdgeColor = pb_Preferences_Internal.GetColor( pb_Constant.pbDefaultEdgeColor );
 		
 		pbDefaultSelectedVertexColor = pb_Preferences_Internal.GetColor( pb_Constant.pbDefaultSelectedVertexColor );
-		pbDefaultVertexColor = pb_Preferences_Internal.GetColor( pb_Constant.pbDefaultVertexColor );
 
 		if(!EditorPrefs.HasKey( pb_Constant.pbDefaultOpenInDockableWindow))
 			EditorPrefs.SetBool(pb_Constant.pbDefaultOpenInDockableWindow, true);
@@ -285,7 +281,7 @@ public class pb_Preferences
 
 		pbShowSceneToolbar = pb_Preferences_Internal.GetBool(pb_Constant.pbShowSceneToolbar);
 
-		_defaultMaterial = pb_Preferences_Internal.GetMaterial(pb_Constant.pbDefaultMaterial);
+		pbDefaultMaterial = pb_Preferences_Internal.GetMaterial(pb_Constant.pbDefaultMaterial);
 
 		defaultShortcuts = EditorPrefs.HasKey(pb_Constant.pbDefaultShortcuts) ? 
 			pb_Shortcut.ParseShortcuts(EditorPrefs.GetString(pb_Constant.pbDefaultShortcuts)) : 
@@ -306,12 +302,11 @@ public class pb_Preferences
 		EditorPrefs.SetString	(pb_Constant.pbDefaultFaceColor, pbDefaultFaceColor.ToString());
 		EditorPrefs.SetString	(pb_Constant.pbDefaultEdgeColor, pbDefaultEdgeColor.ToString());
 		EditorPrefs.SetString	(pb_Constant.pbDefaultSelectedVertexColor, pbDefaultSelectedVertexColor.ToString());
-		EditorPrefs.SetString	(pb_Constant.pbDefaultVertexColor, pbDefaultVertexColor.ToString());
 		EditorPrefs.SetBool  	(pb_Constant.pbDefaultOpenInDockableWindow, defaultOpenInDockableWindow);
 		EditorPrefs.SetString	(pb_Constant.pbDefaultShortcuts, pb_Shortcut.ShortcutsToString(defaultShortcuts));
 
-		string matPath = _defaultMaterial != null ? AssetDatabase.GetAssetPath(_defaultMaterial) : "";
-		EditorPrefs.SetString	(pb_Constant.pbDefaultMaterial, matPath == "" ? _defaultMaterial.name : matPath);
+		string matPath = pbDefaultMaterial != null ? AssetDatabase.GetAssetPath(pbDefaultMaterial) : "";
+		EditorPrefs.SetString	(pb_Constant.pbDefaultMaterial, matPath == "" ? pbDefaultMaterial.name : matPath);
 		
 		EditorPrefs.SetInt 		(pb_Constant.pbDefaultCollider, defaultColliderType);	
 		EditorPrefs.SetBool  	(pb_Constant.pbShowEditorNotifications, pbShowEditorNotifications);
@@ -331,6 +326,7 @@ public class pb_Preferences
 		EditorPrefs.SetFloat 	(pb_Constant.pbUVGridSnapValue, pbUVGridSnapValue);
 
 
-		pb_Editor_Graphics.LoadColors();
+		pb_Editor_Graphics.LoadPrefs();
+		SceneView.RepaintAll();
 	}
 }

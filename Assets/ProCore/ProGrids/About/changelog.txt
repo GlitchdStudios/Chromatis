@@ -1,3 +1,15 @@
+-- ProGrids 2.1.6p2 -
+
+# Features
+	- Unity 5 compatibility.
+
+# Patch 1
+	- Add documentation PDF.
+
+# Patch 2
+	- Fix Upgradable API warning.
+	- Fix version marking in About.
+
 -- ProGrids 2.1.5 -
 
 # Bug Fixes

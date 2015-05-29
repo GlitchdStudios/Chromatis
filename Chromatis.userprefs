@@ -1,28 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\Controls\RayCastHandler.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Utility\DataSlot\DataSphereSlot.cs">
     <Files>
-      <File FileName="Assets\Scripts\Level Scripts\Area1\Tutorial.cs" Line="29" Column="43" />
-      <File FileName="Assets\Scripts\General Scripts\Toolbox.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Level Scripts\Area1\A1Toolbox.cs" Line="4" Column="67" />
-      <File FileName="Assets\Scripts\GUI\Tutorial\TutPanel.cs" Line="33" Column="29" />
-      <File FileName="Assets\Scripts\GUI\Tutorial\TutImage.cs" Line="34" Column="16" />
-      <File FileName="Assets\Scripts\GUI\Tutorial\TutText.cs" Line="58" Column="22" />
-      <File FileName="Assets\Scripts\Level Scripts\ParentTrigger.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Level Scripts\Area1\ParticleController.cs" Line="18" Column="20" />
-      <File FileName="Assets\Scripts\Utility\DataSphereSlot.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Level Scripts\Area1\BuildingAnimation.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\Controls\ChromaControls.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\Controls\DataManipulator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\Controls\RayCastHandler.cs" Line="32" Column="84" />
-      <File FileName="Assets\Scripts\Player\Controls\CharacterControls.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Utility\DataSlot\DataSphereSlot.cs" Line="52" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="E:\Chromatis\Assets\Scripts\Utility\DataSphereSlot.cs" line="52" />
-      <Breakpoint file="E:\Chromatis\Assets\Scripts\Utility\DataSphereSlot.cs" line="31" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

@@ -6,15 +6,16 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using ProGrids2;
-using ProCore.Common;
 
 public class pg_Editor : EditorWindow
 {
 
 #region MEMBERS
 
+	const string PROGRIDS_ICONS_PATH = "Assets/ProCore/ProGrids/GUI/";
 	const float MIN_SNAP_VALUE = .01f;
 	
 	public static pg_Editor instance;
@@ -78,7 +79,7 @@ public class pg_Editor : EditorWindow
 	private Texture2D gui_PlaneZ_on, gui_PlaneZ_off;
 	private Texture2D gui_LockGrid_on, gui_LockGrid_off;
 
-	private GUIContent gc_SnapToGrid = new GUIContent((Texture2D)null, "Snaps all selected objects to grid.");
+	private GUIContent gc_SnapToGrid 	= new GUIContent((Texture2D)null, "Snaps all selected objects to grid.");
 	private GUIContent gc_SnapEnabled 	= new GUIContent((Texture2D)null, "Toggles snapping on or off.");
 	private GUIContent gc_GridEnabled 	= new GUIContent((Texture2D)null, "Toggles drawing of guide lines on or off.  Note that object snapping is not affected by this setting.");
 	private GUIContent gc_AngleEnabled 	= new GUIContent((Texture2D)null, "If on, ProGrids will draw angled line guides.  Angle is settable in degrees.");
@@ -152,8 +153,6 @@ NoParseForYou:
 		
 		renderPlane = EditorPrefs.HasKey(pg_Constant.GridAxis) ? (Axis)EditorPrefs.GetInt(pg_Constant.GridAxis) : Axis.Y;
 		
-		SharedProperties.useAxisConstraints = useAxisConstraints;
-
 		alphaBump = (EditorPrefs.HasKey("pg_alphaBump")) ? EditorPrefs.GetFloat("pg_alphaBump") : pg_Preferences.ALPHA_BUMP;
 
 		gridColorX = (EditorPrefs.HasKey("gridColorX")) ? pg_Util.ColorWithString(EditorPrefs.GetString("gridColorX")) : pg_Preferences.GRID_COLOR_X;
@@ -386,27 +385,17 @@ NoParseForYou:
 
 #region INITIALIZATION
 
-	#if DEBUG
-		GameObject pivotGo;
-		GameObject scenePivotGo;
-		GameObject scenePlaneIntercept;
-	#endif
-
 	public void OnEnable()
 	{
-		#if DEBUG
-			pivotGo = new GameObject();//GameObject.CreatePrimitive(PrimitiveType.Cube);
-			scenePivotGo = new GameObject();//GameObject.CreatePrimitive(PrimitiveType.Cube);
-			scenePlaneIntercept = new GameObject();//GameObject.CreatePrimitive(PrimitiveType.Cube);
-		#endif
-
 		instance = this;
 
 		HookSceneView();
 		LoadGUIResources();
 		LoadPreferences();
 		autoRepaintOnSceneChange = true;
-		SetSharedSnapValues(snapEnabled, snapValue);
+		
+		EditorApplication.hierarchyWindowChanged += HierarchyWindowChanged;
+		
 		this.minSize = new Vector2(BUTTON_SIZE+4, WINDOW_HEIGHT);
 		this.maxSize = new Vector2(BUTTON_SIZE+4, WINDOW_HEIGHT);
 
@@ -416,7 +405,6 @@ NoParseForYou:
 
 	public void OnFocus()
 	{
-		SetSharedSnapValues(snapEnabled, snapValue);
 		SceneView.RepaintAll();
 	}
 
@@ -425,18 +413,11 @@ NoParseForYou:
 		if(!EditorApplication.isPlayingOrWillChangePlaymode)
 			pg_GridRenderer.Destroy();
 
-		#if DEBUG
-		if(pivotGo != null)
-			DestroyImmediate(pivotGo);
-		if(scenePivotGo != null)
-			DestroyImmediate(scenePivotGo);
+		EditorApplication.hierarchyWindowChanged -= HierarchyWindowChanged;
 		
-		if(scenePlaneIntercept != null)
-			DestroyImmediate(scenePivotGo);
-		#endif
+		instance = null;
 
 		SceneView.RepaintAll();
-		SetSharedSnapValues(false, snapValue);
 		SceneView.onSceneGUIDelegate -= this.OnSceneGUI;
 	}
 
@@ -453,35 +434,40 @@ NoParseForYou:
 	{
 		// toggleStyle.margin = new RectOffset(5,5,5,5);
 
-		gui_SnapEnabled_on 		= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_Snap_On");
-		gui_SnapEnabled_off 	= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_Snap_Off");
+		gui_SnapEnabled_on 		= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_Snap_On.png");
+		gui_SnapEnabled_off 	= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_Snap_Off.png");
 		
-		gui_GridEnabled_on 		= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_Vis_On");
-		gui_GridEnabled_off 	= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_Vis_Off");
+		gui_GridEnabled_on 		= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_Vis_On.png");
+		gui_GridEnabled_off 	= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_Vis_Off.png");
 		
-		gui_AngleEnabled_on 	= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_AngleVis_On");
-		gui_AngleEnabled_off 	= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_AngleVis_Off");
+		gui_AngleEnabled_on 	= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_AngleVis_On.png");
+		gui_AngleEnabled_off 	= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_AngleVis_Off.png");
 
-		gui_SnapToGrid 			= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PushToGrid_Normal");
-		// gui_SnapToGrid_pressed	= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PushToGrid_Pressed");
+		gui_SnapToGrid 			= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PushToGrid_Normal.png");
+		// gui_SnapToGrid_pressed	= (Texture2D)Resources.LoadAssetAtPath(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PushToGrid_Pressed.png", typeof(Texture2D));
 		gc_SnapToGrid.image 	= gui_SnapToGrid;
 
-		gui_Divider				= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_Divider");
+		gui_Divider				= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_Divider.png");
 
-		gui_fullGrid_on			= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_3D_On");
-		gui_fullGrid_off		= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_3D_Off");
+		gui_fullGrid_on			= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_3D_On.png");
+		gui_fullGrid_off		= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_3D_Off.png");
 
-		gui_PlaneX_on			= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_X_On");
-		gui_PlaneX_off			= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_X_Off");
+		gui_PlaneX_on			= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_X_On.png");
+		gui_PlaneX_off			= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_X_Off.png");
 
-		gui_PlaneY_on			= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_Y_On");
-		gui_PlaneY_off			= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_Y_Off");
+		gui_PlaneY_on			= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_Y_On.png");
+		gui_PlaneY_off			= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_Y_Off.png");
 		
-		gui_PlaneZ_on			= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_Z_On");
-		gui_PlaneZ_off			= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_Z_Off");
+		gui_PlaneZ_on			= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_Z_On.png");
+		gui_PlaneZ_off			= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_Z_Off.png");
 
-		gui_LockGrid_on			= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_Lock_On");
-		gui_LockGrid_off		= (Texture2D)Resources.Load("GUI/ProGridsToggles/ProGrids2_GUI_PGrid_Lock_Off");
+		gui_LockGrid_on			= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_Lock_On.png");
+		gui_LockGrid_off		= LoadAssetAtPath<Texture2D>(PROGRIDS_ICONS_PATH + "ProGridsToggles/ProGrids2_GUI_PGrid_Lock_Off.png");
+	}
+
+	T LoadAssetAtPath<T>(string path) where T : UnityEngine.Object
+	{
+		return (T) AssetDatabase.LoadAssetAtPath(path, typeof(T));
 	}
 #endregion 
 
@@ -564,6 +550,7 @@ NoParseForYou:
 		if(GUILayout.Button(gc_RenderPerspectiveGrid, pbStyle, GUILayout.MaxWidth(BUTTON_SIZE)))
 		{
 			fullGrid = !fullGrid;
+			gridRepaint = true;
 			EditorPrefs.SetBool(pg_Constant.PerspGrid, fullGrid);
 			SceneView.RepaintAll();
 		}
@@ -578,6 +565,8 @@ NoParseForYou:
 			// if we've modified the nudge value, reset the pivot here
 			if(!lockGrid)
 				offset = 0f;
+
+			gridRepaint = true;
 
 			SceneView.RepaintAll();
 		}
@@ -640,19 +629,16 @@ NoParseForYou:
 		if (e.Equals(Event.KeyboardEvent(AXIS_CONSTRAINT_KEY)))
 		{
 			toggleAxisConstraint = true;
-			SharedProperties.useAxisConstraints = !useAxisConstraints;
 		}
 
 		if (e.Equals(Event.KeyboardEvent(TEMP_DISABLE_KEY)))
 		{
-			SetSharedSnapValues(false, snapValue);
 			toggleTempSnap = true;
 		}
 
 		if(e.type == EventType.KeyUp)
 		{
 			toggleAxisConstraint = false;
-			SharedProperties.useAxisConstraints = useAxisConstraints;
 			toggleTempSnap = false;
 			bool used = true;
 
@@ -689,8 +675,6 @@ NoParseForYou:
 					used = false;
 					break;
 			}
-
-			SetSharedSnapValues(snapEnabled, snapValue);
 
 			if(used)
 				e.Use();
@@ -744,17 +728,6 @@ NoParseForYou:
 					pivot = InverseAxisMask(sceneViewPlanePivot, renderPlane) + AxisMask(Selection.activeTransform == null ? pivot : Selection.activeTransform.position, renderPlane);
 				}
 			}
-
-			#if DEBUG
-				pivotGo.transform.position = pivot;
-				scenePivotGo.transform.position = SceneView.lastActiveSceneView.pivot;
-				scenePlaneIntercept.transform.position = sceneViewPlanePivot;
-
-				Handles.Label(scenePivotGo.transform.position, "SceneView Pivot: " + scenePivotGo.transform.position.ToString());
-				Handles.Label(scenePlaneIntercept.transform.position, "\nPivot Plane Intercept: " + scenePlaneIntercept.transform.position.ToString());
-				Handles.Label(pivot, "ProGrids Pivot: " + pivot.ToString());
-
-			#endif
 		}
 
 		if(drawGrid)
@@ -1065,7 +1038,6 @@ NoParseForYou:
 	}
 #endregion
 
-
 #region MOVING TRANSFORMS
 
 	static bool FuzzyEquals(Vector3 lhs, Vector3 rhs)
@@ -1080,6 +1052,12 @@ NoParseForYou:
 			if(t != ignore)
 				t.position += offset;
 		}
+	}
+
+	void HierarchyWindowChanged()
+	{
+		if( Selection.activeTransform != null)
+			lastPosition = Selection.activeTransform.position;
 	}
 #endregion
 
@@ -1101,7 +1079,6 @@ NoParseForYou:
 		snapEnabled = enable;
 		gridRepaint = true;
 		SceneView.RepaintAll();
-		SetSharedSnapValues(snapEnabled, snapValue);
 	}
 
 	public void SetSnapValue(SnapUnit su, float val, int multiplier)
@@ -1118,7 +1095,6 @@ NoParseForYou:
 		#if PRO
 		snapValue = SnapUnitValue(su) * val * value_multiplier;
 		SceneView.RepaintAll();
-		SetSharedSnapValues(snapEnabled, snapValue);
 		
 		EditorPrefs.SetInt(pg_Constant.GridUnit, (int)su);
 		EditorPrefs.SetFloat(pg_Constant.SnapValue, val);
@@ -1152,13 +1128,14 @@ NoParseForYou:
 		#else
 		Debug.LogWarning("Ye ought not be seein' this ye scurvy pirate.");
 		#endif
-	}
+	} 
 
 	public void SetRenderPlane(Axis axis)
 	{
 		offset = 0f;
 		fullGrid = false;
 		renderPlane = axis;
+		EditorPrefs.SetBool(pg_Constant.PerspGrid, fullGrid);
 		EditorPrefs.SetInt(pg_Constant.GridAxis, (int)renderPlane);
 		gridRepaint = true;
 		SceneView.RepaintAll();
@@ -1191,17 +1168,56 @@ NoParseForYou:
 			t.position = pg_Util.SnapValue(t.position, snapValue);
 		
 		gridRepaint = true;
-		SharedProperties.PushToGrid(snapValue);
-	}
 
+		PushToGrid(snapValue);
+	}
 #endregion
 
 #region GLOBAL SETTING
-	
-	public void SetSharedSnapValues(bool enable, float snapVal)
+
+	internal bool GetUseAxisConstraints() { return toggleAxisConstraint ? !useAxisConstraints : useAxisConstraints; }
+	internal float GetSnapValue() { return snapValue; }
+	internal bool GetSnapEnabled() { return (toggleTempSnap ? !snapEnabled : snapEnabled); }
+
+	/**
+	 * Returns the value of useAxisConstraints, accounting for the shortcut key toggle.
+	 */
+	public static bool UseAxisConstraints()
 	{
-		SharedProperties.snapEnabled = enable;
-		SharedProperties.snapValue = snapVal;
+		return instance != null ? instance.GetUseAxisConstraints() : false;
+	}
+
+	/**
+	 * Return the current snap value.
+	 */
+	public static float SnapValue()
+	{
+		return instance != null ? instance.GetSnapValue() : 0f;	
+	}
+
+	/**
+	 * Return true if snapping is enabled, false otherwise.
+	 */
+	public static bool SnapEnabled()
+	{
+		return instance == null ? false : instance.GetSnapEnabled();
+	}
+
+	public static void AddPushToGridListener(System.Action<float> listener)
+	{
+		pushToGridListeners.Add(listener);
+	}
+
+	public static void RemovePushToGridListener(System.Action<float> listener)
+	{
+		pushToGridListeners.Remove(listener);
+	}
+
+	[SerializeField] static List<System.Action<float>> pushToGridListeners = new List<System.Action<float>>();
+	private void PushToGrid(float snapValue)
+	{
+		foreach(System.Action<float> listener in pushToGridListeners)
+			listener(snapValue);
 	}
 #endregion
 }

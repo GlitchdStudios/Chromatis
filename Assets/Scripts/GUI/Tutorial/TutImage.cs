@@ -17,7 +17,6 @@ public class TutImage : MonoBehaviour
 	}
 	public void ChangeAnimation(InstructionState instructionState)
 	{
-		//anim.Play("MouseLeftAnim");
 		anim.enabled = true;
 		switch(instructionState)
 		{

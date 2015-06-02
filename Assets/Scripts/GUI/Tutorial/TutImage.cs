@@ -19,7 +19,7 @@ public class TutImage : MonoBehaviour
 	{
 		anim.enabled = true;
 		switch(instructionState)
-		{
+		{        
 			case InstructionState.MOVEMENT:
 				anim.Play("WASDanim");
 			break;
@@ -27,13 +27,20 @@ public class TutImage : MonoBehaviour
 			case InstructionState.INTERACTION:
 				anim.Play("MouseLeftAnim");
 			break;
+
+			case InstructionState.CHROMAS:
+				anim.Play ("ChromasAnim");
+			break;
 		}
 	}
 
 	public void Clear()
 	{
-		anim.enabled = false;
-		image.sprite = blankSprite;
+		if(anim != null)
+		{
+			anim.enabled = false;
+			image.sprite = blankSprite;
+		}
 	}
 }
 

@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\Level Scripts\Area1\GeneralRotation.cs" />
      <Compile Include="Assets\Scripts\Level Scripts\Area1\ParentTrigger.cs" />
      <Compile Include="Assets\Scripts\Level Scripts\Area1\ParticleController.cs" />
+     <Compile Include="Assets\Scripts\Level Scripts\Area1\PhasingPlatform.cs" />
      <Compile Include="Assets\Scripts\Level Scripts\Area1\Tutorial.cs" />
      <Compile Include="Assets\Scripts\Level Scripts\Area2\A2Toolbox.cs" />
      <Compile Include="Assets\Scripts\Level Scripts\Area2\BaseLevel.cs" />

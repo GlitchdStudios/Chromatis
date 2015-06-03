@@ -31,6 +31,10 @@ public class TutImage : MonoBehaviour
 			case InstructionState.CHROMAS:
 				anim.Play ("ChromasAnim");
 			break;
+
+			case InstructionState.GRAVITY:
+				anim.Play("GravityAnim");
+			break;
 		}
 	}
 

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
 using System.Collections;
 
 public class TutImage : MonoBehaviour
@@ -25,7 +24,7 @@ public class TutImage : MonoBehaviour
 			break;
 
 			case InstructionState.INTERACTION:
-				anim.Play("MouseLeftAnim");
+				anim.Play("IntroAnim_Interaction");
 			break;
 
 			case InstructionState.CHROMAS:
@@ -33,7 +32,11 @@ public class TutImage : MonoBehaviour
 			break;
 
 			case InstructionState.GRAVITY:
-				anim.Play("GravityAnim");
+				anim.Play("IntroAnim_Gravity");
+			break;
+
+			case InstructionState.PICKUP:
+				anim.Play("PickupTut");
 			break;
 		}
 	}

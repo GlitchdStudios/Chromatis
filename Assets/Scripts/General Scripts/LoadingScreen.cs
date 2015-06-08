@@ -4,18 +4,19 @@ using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
 {
-	private Image image;
-	public Sprite loadingImage;
+	private bool isLoading;
+	public Canvas canvas;
 
 	void Awake()
 	{
 		Object.DontDestroyOnLoad(this);
-		Object.DontDestroyOnLoad(transform.parent);
 	}
 	// Use this for initialization
 	void Start ()
 	{
-		image = GetComponent<Image>();
+		canvas = GetComponent<Canvas>();
+		canvas.enabled = false;
+		isLoading = false;
 	}
 	
 	// Update is called once per frame
@@ -23,7 +24,23 @@ public class LoadingScreen : MonoBehaviour
 	{
 		if(Application.isLoadingLevel)
 		{
-			image.sprite = loadingImage;
+			if(!isLoading)
+				isLoading = true;
+		}
+		else if(!Application.isLoadingLevel)
+		{
+			if(isLoading)
+				isLoading = false;
+		}
+
+		if(isLoading)
+		{
+			canvas.enabled = true;
+		}
+
+		else if(!isLoading)
+		{
+			canvas.enabled = false;
 		}
 	}
 }

@@ -32,7 +32,6 @@ public class TutPanel : MonoBehaviour
 	{
 		tutImage.Clear();
 		tutText.CancelCoroutine();
-
 	}
 }
 

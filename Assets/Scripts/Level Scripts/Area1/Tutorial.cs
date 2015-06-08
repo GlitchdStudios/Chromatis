@@ -10,6 +10,7 @@ public class Tutorial : MonoBehaviour
 		if(col.tag == "Player")
 		{
 			A1Toolbox.panelScr.instructionState = instructionState;
+			A1Toolbox.panelScr.GetComponent<Animator>().Play("BackgroundAnim");
 			A1Toolbox.panelScr.ShowInstructions();
 			gameObject.GetComponentInChildren<ParticleController>().Hide();
 		}
@@ -20,6 +21,7 @@ public class Tutorial : MonoBehaviour
 		if(col.tag == "Player")
 		{
 			A1Toolbox.panelScr.CancelInstructions();
+			A1Toolbox.panelScr.GetComponent<Animator>().Play("BackgroundReverseAnim");
 			gameObject.GetComponentInChildren<ParticleController>().Show();
 		}
 	}

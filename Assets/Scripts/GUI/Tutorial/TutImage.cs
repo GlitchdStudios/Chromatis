@@ -20,7 +20,7 @@ public class TutImage : MonoBehaviour
 		switch(instructionState)
 		{        
 			case InstructionState.MOVEMENT:
-				anim.Play("WASDanim");
+				anim.Play("WASDanim", -1, 0f);
 			break;
 
 			case InstructionState.INTERACTION:

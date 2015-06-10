@@ -7,10 +7,6 @@ public class LoadingScreen : MonoBehaviour
 	private bool isLoading;
 	private GameObject loadingPlate;
 
-	void Awake()
-	{
-		Object.DontDestroyOnLoad(this);
-	}
 	// Use this for initialization
 	void Start ()
 	{

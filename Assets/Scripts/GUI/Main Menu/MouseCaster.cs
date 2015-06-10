@@ -4,8 +4,15 @@ using System.Collections;
 public class MouseCaster : MonoBehaviour
 {
 	private RaycastHit rayHit;
-	public LayerMask leftMask;
-	
+	private Chromas chroma;
+	private RedMenu redMenu;
+
+	void Start()
+	{
+		chroma = gameObject.GetComponent<Chromas>();
+		redMenu = gameObject.GetComponent<RedMenu>();
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -25,6 +32,8 @@ public class MouseCaster : MonoBehaviour
 					case "StartMenuOption":
 						rayHit.transform.GetComponent<Start>().StartDemo();
 						rayHit.transform.parent.parent.GetComponent<Animator>().Play("PlateRotation");
+						chroma.ChangeChroma(ChromaState.RED);
+						redMenu.ChangeOptions(RedMenuState.LOADING);
 					break;
 				}
 			}

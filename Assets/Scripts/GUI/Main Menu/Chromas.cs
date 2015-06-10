@@ -3,37 +3,34 @@ using System.Collections;
 
 public class Chromas : MonoBehaviour
 {
+	private ChromaState chromaState;
+	private GameObject[] chroma;
+
 	void Start()
 	{
-		Toolbox.chroma = GameObject.FindGameObjectsWithTag("Chroma");
-		Toolbox.initChromaState = ChromaState.BLUE;
+		chroma = GameObject.FindGameObjectsWithTag("Chroma");
+		chromaState = ChromaState.BLUE;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{	
-		for(int i = 0; i < Toolbox.chroma.Length; i++)
+		for(int i = 0; i < chroma.Length; i++)
 		{
-			if((int)Toolbox.chromaState != i)
+			if((int)chromaState != i)
 			{
-				if(Toolbox.chroma[i].activeSelf)
+				if(chroma[i].activeSelf)
 				{
-					Toolbox.chroma[i].SetActive(false);
+					chroma[i].SetActive(false);
 				}
 			}
 		}
 	}
 
-	public void ChangeChromaBlue()
+	public void ChangeChroma(ChromaState m_chromaState)
 	{
-		Toolbox.chromaState = ChromaState.BLUE;
-		Toolbox.chroma[(int)ChromaState.BLUE].SetActive(true);
-	}
-
-	public void ChangeChromaRed()
-	{
-		Toolbox.chromaState = ChromaState.RED;
-		Toolbox.chroma[(int)ChromaState.RED].SetActive(true);
+		chromaState = m_chromaState;
+		chroma[(int)m_chromaState].SetActive(true);
 	}
 }
 

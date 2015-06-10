@@ -24,6 +24,7 @@ public class MouseCaster : MonoBehaviour
 				{
 					case "StartMenuOption":
 						rayHit.transform.GetComponent<Start>().StartDemo();
+						rayHit.transform.parent.parent.GetComponent<Animator>().Play("PlateRotation");
 					break;
 				}
 			}

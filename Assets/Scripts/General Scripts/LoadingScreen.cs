@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class LoadingScreen : MonoBehaviour
 {
 	private bool isLoading;
-	public Canvas canvas;
+	private GameObject loadingPlate;
 
 	void Awake()
 	{
@@ -14,8 +14,8 @@ public class LoadingScreen : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		canvas = GetComponent<Canvas>();
-		canvas.enabled = false;
+		loadingPlate = gameObject;
+		loadingPlate.SetActive(false);
 		isLoading = false;
 	}
 	
@@ -35,12 +35,12 @@ public class LoadingScreen : MonoBehaviour
 
 		if(isLoading)
 		{
-			canvas.enabled = true;
+			loadingPlate.SetActive(true);
 		}
 
 		else if(!isLoading)
 		{
-			canvas.enabled = false;
+			loadingPlate.SetActive(false);
 		}
 	}
 }

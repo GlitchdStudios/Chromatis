@@ -3,16 +3,20 @@ using System.Collections;
 
 public class ApplyButton : MonoBehaviour
 {
-	private FullScreenToggle fullScreenToggle;
-	private ResolutionOption resolutionOption;
+	public FullScreenToggle fullScreenToggle;
+	public GameObject resOptionsObj;
+	public ResolutionOption resOption;
+
+	void Start()
+	{
+		resOption = resOptionsObj.GetComponent<ResolutionOption>();
+		fullScreenToggle = new FullScreenToggle();
+	}
 
 	public void ChangeResolution()
 	{
-		fullScreenToggle = new FullScreenToggle();
-		resolutionOption = new ResolutionOption();
-
-		Screen.SetResolution(resolutionOption.resolutions[resolutionOption.ResIndex].width, 
-		                     		  	resolutionOption.resolutions[resolutionOption.ResIndex].height, 
+		Screen.SetResolution(resOption.resolutions[resOption.ResIndex].width, 
+		                    			resOption.resolutions[resOption.ResIndex].height, 
 		                     			fullScreenToggle.getIsFullScreen());
 	}
 }

@@ -7,15 +7,16 @@ public class MouseCaster : MonoBehaviour
 	private Ray ray;
 	private Chromas chroma;
 	private RedMenu redMenu;
-	private FullScreenToggle fullScreenToggle;
+	private ApplyButton applyButton;
 
+	public GameObject applyButtonObj;
 	public Texture[] toggleTexture;
 
 	void Start()
 	{
 		chroma = gameObject.GetComponent<Chromas>();
 		redMenu = gameObject.GetComponent<RedMenu>();
-		fullScreenToggle = new FullScreenToggle();
+		applyButton = applyButtonObj.GetComponent<ApplyButton>(); 
 	}
 	
 	// Update is called once per frame
@@ -55,9 +56,9 @@ public class MouseCaster : MonoBehaviour
 		switch(rayHit.collider.name)
        	 	{
 			case "FullScreenToggle":
-				fullScreenToggle.ToggleFullScreen();
+				applyButton.fullScreenToggle.ToggleFullScreen();
 				
-				if(fullScreenToggle.getIsFullScreen())
+				if(applyButton.fullScreenToggle.getIsFullScreen())
 				{
 					rayHit.transform.GetComponent<Renderer>().material.mainTexture = toggleTexture[1];
 				}
@@ -65,6 +66,28 @@ public class MouseCaster : MonoBehaviour
 				{
 					rayHit.transform.GetComponent<Renderer>().material.mainTexture = toggleTexture[0];
 				}
+			break;
+
+			case "LeftArrow":
+				applyButton.resOption.ResIndex--;
+
+				if(applyButton.resOption.ResIndex <= 0)
+				{
+					applyButton.resOption.ResIndex = (applyButton.resOption.resolutions.Length - 1);
+				}
+
+				rayHit.transform.GetComponent<Arrow>().textMesh.text = applyButton.resOption.resolutions[applyButton.resOption.ResIndex].width.ToString() + " x " + applyButton.resOption.resolutions[applyButton.resOption.ResIndex].height.ToString();
+			break;
+
+			case "RightArrow":
+				applyButton.resOption.ResIndex++;
+
+				if(applyButton.resOption.ResIndex >= (applyButton.resOption.resolutions.Length - 1))
+				{
+					applyButton.resOption.ResIndex = 0;
+				}	
+
+				rayHit.transform.GetComponent<Arrow>().textMesh.text = applyButton.resOption.resolutions[applyButton.resOption.ResIndex].width.ToString() + " x " + applyButton.resOption.resolutions[applyButton.resOption.ResIndex].height.ToString();
 			break;
 		}
 	}

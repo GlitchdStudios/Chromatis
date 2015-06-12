@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\GUI\Main Menu\Chromas.cs" />
      <Compile Include="Assets\Scripts\GUI\Main Menu\Menu Items\Start.cs" />
      <Compile Include="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\ApplyButton.cs" />
+     <Compile Include="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\Arrow.cs" />
      <Compile Include="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\FullScreenToggle.cs" />
      <Compile Include="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\ResolutionOption.cs" />
      <Compile Include="Assets\Scripts\GUI\Main Menu\MouseCaster.cs" />

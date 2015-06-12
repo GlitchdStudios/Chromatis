@@ -4,7 +4,6 @@ using System.Collections;
 public class ResolutionOption : MonoBehaviour
 {
 	public Resolution[] resolutions;
-	public Texture[] resImages;
 
 	void Start()
 	{

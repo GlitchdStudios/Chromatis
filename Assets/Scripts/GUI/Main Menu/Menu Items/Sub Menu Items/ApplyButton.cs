@@ -11,7 +11,9 @@ public class ApplyButton : MonoBehaviour
 		fullScreenToggle = new FullScreenToggle();
 		resolutionOption = new ResolutionOption();
 
-		Screen.SetResolution(resolutionOption.getWidth(), resolutionOption.getHeight(), fullScreenToggle.getIsFullScreen());
+		Screen.SetResolution(resolutionOption.resolutions[resolutionOption.ResIndex].width, 
+		                     		  	resolutionOption.resolutions[resolutionOption.ResIndex].height, 
+		                     			fullScreenToggle.getIsFullScreen());
 	}
 }
 

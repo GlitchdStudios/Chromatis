@@ -7,12 +7,15 @@ public class MouseCaster : MonoBehaviour
 	private Ray ray;
 	private Chromas chroma;
 	private RedMenu redMenu;
-	
+	private FullScreenToggle fullScreenToggle;
+
+	public Texture[] toggleTexture;
+
 	void Start()
 	{
 		chroma = gameObject.GetComponent<Chromas>();
 		redMenu = gameObject.GetComponent<RedMenu>();
-		ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		fullScreenToggle = new FullScreenToggle();
 	}
 	
 	// Update is called once per frame
@@ -20,9 +23,11 @@ public class MouseCaster : MonoBehaviour
 	{
 		if(Input.GetButtonDown("Fire1"))
 		{
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit))
 			{
 				ChooseMenuItem();
+				ChooseSubMenuItem();
 			}
 		}
 	}
@@ -47,9 +52,20 @@ public class MouseCaster : MonoBehaviour
 	
 	public void ChooseSubMenuItem()
 	{
-		//		switch(rayHit.collider.tag)
-		//       	 	{
-		//
-		//		}
+		switch(rayHit.collider.name)
+       	 	{
+			case "FullScreenToggle":
+				fullScreenToggle.ToggleFullScreen();
+				
+				if(fullScreenToggle.getIsFullScreen())
+				{
+					rayHit.transform.GetComponent<Renderer>().material.mainTexture = toggleTexture[1];
+				}
+				else
+				{
+					rayHit.transform.GetComponent<Renderer>().material.mainTexture = toggleTexture[0];
+				}
+			break;
+		}
 	}
 }

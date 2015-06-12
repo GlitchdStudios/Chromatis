@@ -3,16 +3,14 @@ using System.Collections;
 
 public class ResolutionOption : MonoBehaviour
 {
-	private int m_width;
-	private int m_height;
+	public Resolution[] resolutions;
+	public Texture[] resImages;
 
-	public void SetResolutionValues(int width, int height)
+	void Start()
 	{
-		m_width = width;
-		m_height = height;
+		resolutions = Screen.resolutions;
 	}
 
-	public int getWidth() { return m_width; }
-	public int getHeight() { return m_height; }
+	public int ResIndex { get; set; }
 }
 

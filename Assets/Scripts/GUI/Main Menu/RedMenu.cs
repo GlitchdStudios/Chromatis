@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public enum RedMenuState  { OPTIONS = 0,  LOADING }  
+public enum RedMenuState  { OPTIONS = 0, LOADING }  
 
 public class RedMenu : MonoBehaviour
 {

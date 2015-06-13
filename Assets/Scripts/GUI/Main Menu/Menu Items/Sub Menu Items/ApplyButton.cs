@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ApplyButton : MonoBehaviour
 {
+	public GameObject fullScreenToggleObj;
 	public FullScreenToggle fullScreenToggle;
 	public GameObject resOptionsObj;
 	public ResolutionOption resOption;
@@ -10,7 +11,7 @@ public class ApplyButton : MonoBehaviour
 	void Start()
 	{
 		resOption = resOptionsObj.GetComponent<ResolutionOption>();
-		fullScreenToggle = new FullScreenToggle();
+		fullScreenToggle = fullScreenToggleObj.GetComponent<FullScreenToggle>();
 	}
 
 	public void ChangeResolution()

@@ -35,18 +35,21 @@ public class MouseCaster : MonoBehaviour
 	
 	private void ChooseMenuItem()
 	{
-		switch(rayHit.collider.tag)
+		switch(rayHit.collider.name)
 		{
-		case "StartMenuOption":
+		case "Start":
 			rayHit.transform.GetComponent<Start>().StartDemo();
 			chroma.ChangeChroma(ChromaState.RED);
 			redMenu.ChangeOptions(RedMenuState.LOADING);
 			break;
 			
 		case "Options":
-			rayHit.transform.parent.parent.GetComponent<Animator>().Play("PlateRotation");
 			chroma.ChangeChroma(ChromaState.RED);
 			redMenu.ChangeOptions(RedMenuState.OPTIONS);
+			break;
+
+		case "Exit":
+			Application.Quit();
 			break;
 		}
 	}
@@ -71,7 +74,7 @@ public class MouseCaster : MonoBehaviour
 			case "LeftArrow":
 				applyButton.resOption.ResIndex--;
 
-				if(applyButton.resOption.ResIndex <= 0)
+				if(applyButton.resOption.ResIndex < 0)
 				{
 					applyButton.resOption.ResIndex = (applyButton.resOption.resolutions.Length - 1);
 				}
@@ -82,12 +85,21 @@ public class MouseCaster : MonoBehaviour
 			case "RightArrow":
 				applyButton.resOption.ResIndex++;
 
-				if(applyButton.resOption.ResIndex >= (applyButton.resOption.resolutions.Length - 1))
+				if(applyButton.resOption.ResIndex > (applyButton.resOption.resolutions.Length - 1))
 				{
 					applyButton.resOption.ResIndex = 0;
 				}	
 
 				rayHit.transform.GetComponent<Arrow>().textMesh.text = applyButton.resOption.resolutions[applyButton.resOption.ResIndex].width.ToString() + " x " + applyButton.resOption.resolutions[applyButton.resOption.ResIndex].height.ToString();
+			break;
+
+			case "ApplyButton":
+				rayHit.transform.GetComponent<ApplyButton>().ChangeResolution();
+			break;
+
+			case "Cancel":
+				chroma.ChangeChroma(ChromaState.BLUE);
+			//	redMenu.ChangeOptions();
 			break;
 		}
 	}

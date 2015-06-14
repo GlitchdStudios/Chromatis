@@ -3,19 +3,40 @@ using System.Collections;
 
 public class GeneralControls : MonoBehaviour
 {
-	// Use this for initialization
-	void Start ()
+	public GameObject menuPlate;
+
+	void Start()
 	{
-	
+		menuPlate.SetActive(false);
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
+		OpenMenu();
+	}
+
+	public void OpenMenu()
+	{
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
-			Application.Quit();
+			menuPlate.SetActive(true);
+			MenuToolbox.crosshair.SetActive(false);
+			Cursor.visible = true;
 		}
+	}
+
+	#if UNITY_EDITOR
+	void LateUpdate()
+	{
+		if(!menuPlate.activeSelf)
+			Cursor.lockState = CursorLockMode.Locked;
+	}
+	#endif
+	
+	void OnApplicationFocus()
+	{
+		Cursor.lockState = CursorLockMode.Confined;
 	}
 }
 

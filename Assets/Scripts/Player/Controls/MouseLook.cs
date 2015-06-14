@@ -56,12 +56,6 @@ public class MouseLook: MonoBehaviour
 			transform.localRotation = originalRotation * yQuaternion;
 		}
 	}
-
-	void LateUpdate()
-	{
-		if (Input.GetMouseButton(0))
-			Cursor.lockState = CursorLockMode.Locked;
-	}
 	
 	void Start () 
 	{

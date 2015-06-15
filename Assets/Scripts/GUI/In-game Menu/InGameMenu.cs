@@ -30,6 +30,8 @@ public class InGameMenu : MonoBehaviour
 		{
 		case "ReturnToGame":
 			gameObject.SetActive(false);
+			Camera.main.GetComponent<MouseLook>().MenuIsUp = false;
+			MenuToolbox.crosshair.SetActive(true);
 			break;
 			
 		case "Options":

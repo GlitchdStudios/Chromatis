@@ -23,6 +23,7 @@ public class GeneralControls : MonoBehaviour
 			menuPlate.SetActive(true);
 			MenuToolbox.crosshair.SetActive(false);
 			Cursor.visible = true;
+			Camera.main.GetComponent<MouseLook>().MenuIsUp = true;
 		}
 	}
 

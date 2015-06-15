@@ -35,8 +35,16 @@ public class TutText : MonoBehaviour
 			StartCoroutine(ChangeText(">  To change gravity, point your crosshair at the surface you want to walk on and press:  "));
 			break;
 
+		case InstructionState.GRAVITY2:
+			StartCoroutine(ChangeText(">  Press Spacebar to return to normal gravity/jump."));
+			break;
+
 		case InstructionState.PICKUP:
 			StartCoroutine(ChangeText(">  To pick up the DataSphere, press:  "));
+			break;
+
+		case InstructionState.NOGRAV:
+			StartCoroutine(ChangeText(">  White colored surfaces do not allow you to change your gravity to them."));
 			break;
 		}
 	}

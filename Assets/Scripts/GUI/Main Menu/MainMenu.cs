@@ -8,7 +8,8 @@ public class MainMenu : MonoBehaviour
 	private Chromas chroma;
 	private RedMenu redMenu;
 	private ApplyButton applyButton;
-	
+	private AudioSource menuClip;
+
 	public GameObject applyButtonObj;
 	public Texture[] toggleTexture;
 	
@@ -17,6 +18,7 @@ public class MainMenu : MonoBehaviour
 		chroma = gameObject.GetComponent<Chromas>();
 		redMenu = gameObject.GetComponent<RedMenu>();
 		applyButton = applyButtonObj.GetComponent<ApplyButton>(); 
+		menuClip = gameObject.GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -35,6 +37,7 @@ public class MainMenu : MonoBehaviour
 	
 	private void ChooseMenuItem()
 	{
+		menuClip.Play();
 		switch(rayHit.collider.name)
 		{
 		case "Start":

@@ -1,7 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GUI\In-game Menu\InGameMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GUI\Tutorial\TutImage.cs">
     <Files>
+      <File FileName="Chromatis.sln" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GUI\Main Menu\RedMenu.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GUI\Main Menu\Chromas.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\ApplyButton.cs" Line="1" Column="1" />
@@ -9,28 +10,34 @@
       <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\ResolutionOption.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Level Scripts\Area2\Level.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Level Scripts\Area2\Tower.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General Scripts\Toolbox.cs" Line="12" Column="2" />
+      <File FileName="Assets\Scripts\General Scripts\Toolbox.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\Arrow.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\Player.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\Controls\CharacterControls.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\Controls\ChromaControls.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\Controls\DataManipulator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\Controls\MouseLook.cs" Line="58" Column="3" />
+      <File FileName="Assets\Scripts\Player\Controls\MouseLook.cs" Line="43" Column="15" />
       <File FileName="Assets\Scripts\Player\Controls\RayCastHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General Scripts\GeneralControls.cs" Line="32" Column="7" />
-      <File FileName="Assets\Scripts\GUI\In-game Menu\InGameMenu.cs" Line="39" Column="1" />
+      <File FileName="Assets\Scripts\General Scripts\GeneralControls.cs" Line="27" Column="4" />
+      <File FileName="Assets\Scripts\GUI\In-game Menu\InGameMenu.cs" Line="34" Column="42" />
       <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Start.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GUI\Main Menu\MainMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GUI\Tutorial\TutText.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Menu\MainMenu.cs" Line="40" Column="19" />
+      <File FileName="Assets\Scripts\GUI\Tutorial\TutText.cs" Line="48" Column="10" />
       <File FileName="Assets\Scripts\GUI\MenuToolbox.cs" Line="4" Column="1" />
       <File FileName="Assets\Scripts\General Scripts\ScrollingTexture.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Platforms\MovingFloor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\General Scripts\LoadingScreen.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Utility\AreaPortal.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Utility\Utility_BaseClass\Utility.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Level Scripts\Area1\Tutorial.cs" Line="6" Column="43" />
+      <File FileName="Assets\Scripts\GUI\Tutorial\TutPanel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Tutorial\TutImage.cs" Line="46" Column="32" />
+      <File FileName="Assets\Scripts\Level Scripts\Area1\A1Toolbox.cs" Line="4" Column="100" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="E:\Chromatis\Assets\Scripts\GUI\Main Menu\MouseCaster.cs" line="12" />
-      <Breakpoint file="E:\Chromatis\Assets\Scripts\GUI\In-game Menu\InGameMenu.cs" line="39" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

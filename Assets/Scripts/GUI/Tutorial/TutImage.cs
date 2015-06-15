@@ -35,8 +35,16 @@ public class TutImage : MonoBehaviour
 				anim.Play("IntroAnim_Gravity");
 			break;
 
+			case InstructionState.GRAVITY2:
+				Clear();
+			break;
+
 			case InstructionState.PICKUP:
 				anim.Play("PickupTut");
+			break;
+
+			case InstructionState.NOGRAV:
+				Clear();
 			break;
 		}
 	}

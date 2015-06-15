@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public enum InstructionState {MOVEMENT = 0, INTERACTION, CHROMAS, GRAVITY, PICKUP }
+public enum InstructionState {MOVEMENT = 0, INTERACTION, CHROMAS, GRAVITY, GRAVITY2, PICKUP, NOGRAV }
 
 public class A1Toolbox: Toolbox
 {

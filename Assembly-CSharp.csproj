@@ -106,7 +106,8 @@
      <Compile Include="Assets\Scripts\Traps\GravTrap.cs" />
      <Compile Include="Assets\Scripts\Traps\SpikeTrap.cs" />
      <Compile Include="Assets\Scripts\Traps\Traps_BaseClass\Trap.cs" />
-     <Compile Include="Assets\Scripts\Utility\AreaPortal.cs" />
+     <Compile Include="Assets\Scripts\Utility\AreaPortal\AreaPortal.cs" />
+     <Compile Include="Assets\Scripts\Utility\AreaPortal\PortalParticle.cs" />
      <Compile Include="Assets\Scripts\Utility\DataSlot\DataSphereSlot.cs" />
      <Compile Include="Assets\Scripts\Utility\DataSphere\DataSphere.cs" />
      <Compile Include="Assets\Scripts\Utility\DataSphere\DataSphereBase.cs" />

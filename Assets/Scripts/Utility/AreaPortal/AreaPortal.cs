@@ -4,8 +4,8 @@ using System.Collections;
 public class AreaPortal : MonoBehaviour
 {
 	private Animator[] anim;
-
 	private PortalParticle portalParticle;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -19,10 +19,11 @@ public class AreaPortal : MonoBehaviour
 		{
 		        for(int i = 0; i < anim.Length; i++)
 		        {
-		            anim[i].Play((i+1).ToString());
+		           	 anim[i].Play((i+1).ToString());
 		        }
-
+			
 			portalParticle.EnableEmit();
+			transform.parent.GetComponent<Animator>().Play("Teleport");
 		}
     	}
 }

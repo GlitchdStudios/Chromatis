@@ -38,6 +38,9 @@ public class InGameMenu : MonoBehaviour
 			break;
 			
 		case "ExitToMenu":
+			Toolbox.chromaState = ChromaState.BLUE;
+			Toolbox.playerScr.InitPlayer();
+			Toolbox.isControlable = true;
 			Application.LoadLevelAsync("Menu");
 			break;
 		}

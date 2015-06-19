@@ -1,20 +1,31 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Utility\AreaPortal\AreaPortal.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GUI\DemoEnd\EndNavigation.cs">
     <Files>
-      <File FileName="Assets\Scripts\Utility\AreaPortal\AreaPortal.cs" Line="6" Column="21" />
-      <File FileName="Assets\Scripts\Utility\DataSphere\DataSphere.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Utility\DataSphere\DataSphereBase.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Utility\DataSlot\DataSphereSlot.cs" Line="17" Column="14" />
+      <File FileName="Assets\Scripts\General Scripts\GeneralControls.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\General Scripts\DeathTrigger.cs" Line="43" Column="12" />
       <File FileName="Assets\Scripts\Player\Controls\ChromaControls.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\Controls\DataManipulator.cs" Line="22" Column="14" />
-      <File FileName="Assets\Scripts\Player\Controls\RayCastHandler.cs" Line="30" Column="19" />
-      <File FileName="Assets\Scripts\Level Scripts\Area1\Tutorial.cs" Line="31" Column="5" />
-      <File FileName="Assets\Scripts\Utility\AreaPortal\PortalParticle.cs" Line="16" Column="20" />
+      <File FileName="Assets\Scripts\GUI\In-game Menu\InGameMenu.cs" Line="43" Column="33" />
+      <File FileName="Assets\Scripts\General Scripts\Checkpoint.cs" Line="15" Column="12" />
+      <File FileName="Assets\Scripts\Player\Player.cs" Line="23" Column="1" />
+      <File FileName="Assets\Scripts\Player\Controls\DataManipulator.cs" Line="24" Column="1" />
+      <File FileName="Assets\Scripts\Player\Controls\RayCastHandler.cs" Line="42" Column="22" />
+      <File FileName="Assets\Scripts\GUI\DemoEnd\URLButton.cs" Line="10" Column="28" />
+      <File FileName="Assets\Scripts\Utility\AreaPortal\AreaPortal.cs" Line="8" Column="2" />
+      <File FileName="Assets\Scripts\GUI\Main Menu\MainMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Start.cs" Line="10" Column="31" />
+      <File FileName="Assets\Scripts\Utility\AreaPortal\PortalParticle.cs" Line="13" Column="3" />
+      <File FileName="Assets\Scripts\Utility\AreaPortal\SubParticle.cs" Line="6" Column="33" />
+      <File FileName="Assets\Scripts\GUI\DemoEnd\EndNavigation.cs" Line="15" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="E:\Chromatis\Assets\Scripts\GUI\In-game Menu\InGameMenu.cs" line="41" />
+      <Breakpoint file="E:\Chromatis\Assets\Scripts\Player\Controls\RayCastHandler.cs" line="46" />
+      <Breakpoint file="E:\Chromatis\Assets\Scripts\Player\Controls\RayCastHandler.cs" line="44" />
+      <Breakpoint file="E:\Chromatis\Assets\Scripts\Player\Controls\RayCastHandler.cs" line="42" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

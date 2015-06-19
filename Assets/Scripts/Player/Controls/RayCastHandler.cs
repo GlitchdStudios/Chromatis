@@ -49,8 +49,11 @@ public class RayCastHandler : MonoBehaviour
 
 		else
 		{
-			UpdateObject();
-			DropObject(origin, direction);
+			if(hitObject != null)
+			{
+				UpdateObject();
+				DropObject(origin, direction);
+			}
 		}
 	}
 

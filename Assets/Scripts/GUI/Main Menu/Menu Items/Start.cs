@@ -3,9 +3,17 @@ using System.Collections;
 
 public class Start : MonoBehaviour 
 {
+	AsyncOperation asyncOp;
+
 	public void StartDemo()
 	{
-		Application.LoadLevelAsync("Area_01");
+		StartCoroutine(DelayLoad());
+	}
+
+	private IEnumerator DelayLoad()
+	{
+		asyncOp = Application.LoadLevelAsync("Area_01");
+		yield return asyncOp;
 	}
 }
 

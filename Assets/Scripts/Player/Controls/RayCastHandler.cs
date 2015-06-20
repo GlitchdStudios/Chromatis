@@ -12,7 +12,7 @@ public class RayCastHandler : MonoBehaviour
 	private Platform platformScr;
 	private float startSpeed;
 	private float curDistance;
-	private float minDistance;
+	private float maxDistance;
 
 	public float leftRayDistance;
 	public float rightRayDistance;
@@ -24,7 +24,7 @@ public class RayCastHandler : MonoBehaviour
 	void Start()
 	{
 		startSpeed = speed;
-		minDistance = 3f;
+		maxDistance = 1f;
 	}
 
 	public void Interact(Vector3 origin, Vector3 direction)
@@ -117,8 +117,9 @@ public class RayCastHandler : MonoBehaviour
 	public void UpdateObject()
 	{
 		curDistance = GetSqrDistXZ(hitObject.position, Toolbox.followTrans.position);
-		curDistance = Mathf.Clamp (curDistance, 0, minDistance);
-		//Debug.Log("CurDistance " + curDistance);
+		curDistance = Mathf.Clamp (curDistance, 0, maxDistance);
+
+		Debug.Log("CurDistance " + curDistance);
 		speed = startSpeed * curDistance;
 
 	 	direction = (Toolbox.followTrans.position - hitObject.position).normalized;

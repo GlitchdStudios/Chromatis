@@ -9,6 +9,8 @@ public class SubParticle : MonoBehaviour
 	{
 		if(col.tag == "Player")
 		{
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
 			StartCoroutine(LoadEnd());
 		}
 	}

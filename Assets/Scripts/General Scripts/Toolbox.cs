@@ -15,7 +15,6 @@ public class Toolbox: MonoBehaviour
 	public static Transform followTrans;
 	public static Transform playerTransform;
 	public static Transform mainCameraTransform;
-	public static Transform surfaceCasterTransform;
 	public static CharacterControls characterControls;
 	public static DataSphere dataSphereScr;
 	public static Player playerScr;

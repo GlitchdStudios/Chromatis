@@ -6,7 +6,7 @@ public class RayCastHandler : MonoBehaviour
 	private RaycastHit rayHit;
 	private Rigidbody hitObject;
 	private Vector3 direction;
-	private Vector3 curDirection;
+	//private Vector3 curDirection;
 	private Switch switchScr;
 	private BaseLevel baseLevelScr;
 	private Platform platformScr;
@@ -19,12 +19,14 @@ public class RayCastHandler : MonoBehaviour
 	public LayerMask leftMask;
 	public LayerMask rightMask;
 	public LayerMask pickupMask;
+	public LayerMask floorMask;
 	public float speed;
 
 	void Start()
 	{
 		startSpeed = speed;
-		maxDistance = 1f;
+		maxDistance = 0.5f;
+		Toolbox.followTrans.localPosition = new Vector3(Toolbox.followTrans.localPosition.x, Toolbox.followTrans.localPosition.y, 2.5f);
 	}
 
 	public void Interact(Vector3 origin, Vector3 direction)
@@ -51,7 +53,7 @@ public class RayCastHandler : MonoBehaviour
 		{
 			if(hitObject != null)
 			{
-				UpdateObject();
+				UpdateObject(origin, direction);
 				DropObject(origin, direction);
 			}
 		}
@@ -114,17 +116,25 @@ public class RayCastHandler : MonoBehaviour
 		}
 	}
 
-	public void UpdateObject()
+	public void UpdateObject(Vector3 origin, Vector3 direction)
 	{
 		curDistance = GetSqrDistXZ(hitObject.position, Toolbox.followTrans.position);
 		curDistance = Mathf.Clamp (curDistance, 0, maxDistance);
 
 		Debug.Log("CurDistance " + curDistance);
 		speed = startSpeed * curDistance;
-
+		
 	 	direction = (Toolbox.followTrans.position - hitObject.position).normalized;
 		hitObject.velocity = direction * speed;
 		hitObject.rotation = A1Toolbox.playerTransform.rotation;
+	}
+
+	private void ChangeFollowPos(Vector3 origin, Vector3 direction)
+	{
+//		if(!Physics.Raycast(origin, direction, out rayHit, leftRayDistance, floorMask))
+//		{
+//			Toolbox.followTrans.position.z = 
+//      		}
 	}
 
 	public void DropObject(Vector3 origin, Vector3 direction)

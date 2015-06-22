@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SurfaceRaycastTrigger : MonoBehaviour
 {
+	private Transform surfaceCasterTrans;
 	private Vector3 playerPos;
 	private Vector3 surfaceDirection;
 	private RaycastHit rayHit;
@@ -26,10 +27,12 @@ public class SurfaceRaycastTrigger : MonoBehaviour
 	// Use this for initialization
 	void OnTriggerStay(Collider col)
 	{
-		playerPos = Toolbox.surfaceCasterTransform.position;
-		surfaceDirection = Toolbox.surfaceCasterTransform.forward;
 		if(col.tag == "Player" && !gravityIsNormal)
 		{
+			surfaceCasterTrans = col.transform.FindChild("SurfaceCaster");
+			playerPos = surfaceCasterTrans.position;
+			surfaceDirection = surfaceCasterTrans.forward;
+
 			if(Physics.Raycast(playerPos, surfaceDirection, out rayHit, rightRayDistance, rightMask))
 			{
 				Toolbox.characterControls.Gravity = -rayHit.normal * Toolbox.generalGravityForce;

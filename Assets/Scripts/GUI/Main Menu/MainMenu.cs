@@ -37,21 +37,23 @@ public class MainMenu : MonoBehaviour
 	
 	private void ChooseMenuItem()
 	{
-		menuClip.Play();
 		switch(rayHit.collider.name)
 		{
 		case "Start":
+			menuClip.Play();
 			rayHit.transform.GetComponent<Start>().StartDemo();
 			chroma.ChangeChroma(ChromaState.RED);
 			redMenu.ChangeOptions(RedMenuState.LOADING);
 			break;
 			
 		case "Options":
+			menuClip.Play();
 			chroma.ChangeChroma(ChromaState.RED);
 			redMenu.ChangeOptions(RedMenuState.OPTIONS);
 			break;
 			
 		case "Exit":
+			menuClip.Play();
 			Application.Quit();
 			break;
 		}
@@ -62,6 +64,7 @@ public class MainMenu : MonoBehaviour
 		switch(rayHit.collider.name)
 		{
 		case "FullScreenToggle":
+			menuClip.Play();
 			applyButton.fullScreenToggle.ToggleFullScreen();
 			
 			if(applyButton.fullScreenToggle.getIsFullScreen())
@@ -75,6 +78,7 @@ public class MainMenu : MonoBehaviour
 			break;
 			
 		case "LeftArrow":
+			menuClip.Play();
 			applyButton.resOption.ResIndex--;
 			
 			if(applyButton.resOption.ResIndex < 0)
@@ -86,6 +90,7 @@ public class MainMenu : MonoBehaviour
 			break;
 			
 		case "RightArrow":
+			menuClip.Play();
 			applyButton.resOption.ResIndex++;
 			
 			if(applyButton.resOption.ResIndex > (applyButton.resOption.resolutions.Length - 1))
@@ -97,10 +102,12 @@ public class MainMenu : MonoBehaviour
 			break;
 			
 		case "ApplyButton":
+			menuClip.Play();
 			rayHit.transform.GetComponent<ApplyButton>().ChangeResolution();
 			break;
 			
 		case "Cancel":
+			menuClip.Play();
 			chroma.ChangeChroma(ChromaState.BLUE);
 			//	redMenu.ChangeOptions();
 			break;

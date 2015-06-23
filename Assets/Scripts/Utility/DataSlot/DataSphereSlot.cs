@@ -5,14 +5,20 @@ public class DataSphereSlot : Utility
 {
 	private DataSphere dataSphereScr;
 	private Transform dataSphereTrans;
+	private AudioSource dataSlotFilledClip;
+
 	public Renderer dataSlotBars;
 	public Renderer dataSlotPlates;
-
 	public GameObject areaPortal;
 	public ChromaState initChroma;
 
 	public override bool ToggleState() { isActive = (isActive == true) ? false : true; return isActive; }
 	public override void CheckState(bool _isActive) {}
+
+	void Start()
+	{
+		dataSlotFilledClip = gameObject.GetComponent<AudioSource>();
+	}
 
 	public void ProcessData(DataState _dataState)
 	{
@@ -51,6 +57,7 @@ public class DataSphereSlot : Utility
 			ShowDataSlot();
 			dataSphereScr.a.enableEmission = true;
 			dataSphereScr.b.enableEmission = true;
+			dataSlotFilledClip.Play();
 		}
 	}
 

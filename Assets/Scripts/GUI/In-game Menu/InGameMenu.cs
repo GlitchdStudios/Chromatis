@@ -5,10 +5,11 @@ public class InGameMenu : MonoBehaviour
 {
 	private RaycastHit rayHit;
 	private Ray ray;
+	private AudioSource inGameMenuClip;
 	// Use this for initialization
 	void Start ()
 	{
-
+		inGameMenuClip = transform.GetComponentInParent<AudioSource>();
 	}
 	
 	void Update ()
@@ -29,6 +30,7 @@ public class InGameMenu : MonoBehaviour
 		switch(rayHit.collider.name)
 		{
 		case "ReturnToGame":
+			inGameMenuClip.Play();
 			gameObject.SetActive(false);
 			Camera.main.GetComponent<MouseLook>().MenuIsUp = false;
 			MenuToolbox.crosshair.SetActive(true);
@@ -38,6 +40,7 @@ public class InGameMenu : MonoBehaviour
 			break;
 			
 		case "ExitToMenu":
+			inGameMenuClip.Play();
 			Toolbox.chromaState = ChromaState.BLUE;
 			Toolbox.playerScr.InitPlayer();
 			Toolbox.isControlable = true;

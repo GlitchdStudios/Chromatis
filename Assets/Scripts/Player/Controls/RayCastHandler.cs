@@ -6,27 +6,38 @@ public class RayCastHandler : MonoBehaviour
 	private RaycastHit rayHit;
 	private Rigidbody hitObject;
 	private Vector3 direction;
+	private AudioSource audioSource;
 	//private Vector3 curDirection;
 	private Switch switchScr;
 	private BaseLevel baseLevelScr;
 	private Platform platformScr;
+	private Crosshair crosshairScr;
 	private float startSpeed;
 	private float curDistance;
 	private float maxDistance;
 
 	public float leftRayDistance;
 	public float rightRayDistance;
+	public float speed;
 	public LayerMask leftMask;
 	public LayerMask rightMask;
 	public LayerMask pickupMask;
 	public LayerMask floorMask;
-	public float speed;
+	public AudioClip interactionClip;
+	public AudioClip gravityClip;
 
 	void Start()
 	{
 		startSpeed = speed;
 		maxDistance = 0.5f;
 		Toolbox.followTrans.localPosition = new Vector3(Toolbox.followTrans.localPosition.x, Toolbox.followTrans.localPosition.y, 2.5f);
+		crosshairScr = MenuToolbox.crosshair.GetComponent<Crosshair>();
+		audioSource = gameObject.GetComponent<AudioSource>();
+	}
+
+	void Update()
+	{
+		crosshairScr.StopAnim(transform);
 	}
 
 	public void Interact(Vector3 origin, Vector3 direction)
@@ -34,11 +45,8 @@ public class RayCastHandler : MonoBehaviour
 		if(Input.GetMouseButtonDown(0) && Physics.Raycast(origin, direction, out rayHit, leftRayDistance, leftMask))
 		{
 			HitSwitch();
-		}
-		
-		if(Input.GetKeyDown(KeyCode.Space))
-		{
-			Toolbox.characterControls.Gravity = Vector3.down * Toolbox.generalGravityForce;
+			audioSource.clip = interactionClip;
+			audioSource.Play();
 		}
 
 		if(Toolbox.isControlable)
@@ -68,6 +76,7 @@ public class RayCastHandler : MonoBehaviour
 			platformScr = switchScr.transform.parent.GetComponent<Platform>();
 			baseLevelScr = switchScr.transform.parent.GetComponent<BaseLevel>();
 
+			//For Area_02
 			if(baseLevelScr != null)
 			{
 				if(!switchScr.IsActive)
@@ -76,11 +85,13 @@ public class RayCastHandler : MonoBehaviour
 				}
 			}
 
+			//For Moving Platform Switches
 			if(platformScr != null)
 			{
 				if(!switchScr.IsActive)
 				{
 					platformScr.SetDirection(switchScr);
+					switchScr.ToggleParticle();
 				}
 			}
 		}
@@ -91,6 +102,14 @@ public class RayCastHandler : MonoBehaviour
 		if(Input.GetMouseButtonDown(1) && Physics.Raycast(origin, direction, out rayHit, rightRayDistance, rightMask))
 		{
 			Toolbox.characterControls.Gravity = -rayHit.normal * Toolbox.generalGravityForce;
+			crosshairScr.StartAnim();
+			audioSource.clip = gravityClip;
+			audioSource.Play();
+		}
+
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			Toolbox.characterControls.Gravity = Vector3.down * Toolbox.generalGravityForce;
 		}
 	}
 

@@ -31,13 +31,13 @@ public class RayCastHandler : MonoBehaviour
 		startSpeed = speed;
 		maxDistance = 0.5f;
 		Toolbox.followTrans.localPosition = new Vector3(Toolbox.followTrans.localPosition.x, Toolbox.followTrans.localPosition.y, 2.5f);
-		crosshairScr = MenuToolbox.crosshair.GetComponent<Crosshair>();
+		//crosshairScr = MenuToolbox.crosshair.GetComponent<Crosshair>();
 		audioSource = gameObject.GetComponent<AudioSource>();
 	}
 
 	void Update()
 	{
-		crosshairScr.StopAnim(transform);
+		//crosshairScr.StopAnim(transform);
 	}
 
 	public void Interact(Vector3 origin, Vector3 direction)

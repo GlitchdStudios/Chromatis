@@ -21,7 +21,7 @@ public class GeneralControls : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
 			menuPlate.SetActive(true);
-			//MenuToolbox.crosshair.SetActive(false);
+			MenuToolbox.crosshair.SetActive(false);
 			Cursor.visible = true;
 			Camera.main.GetComponent<MouseLook>().MenuIsUp = true;
 		}

@@ -24,7 +24,7 @@ public class TutText : MonoBehaviour
 			break;
 
 		case InstructionState.INTERACTION:
-			StartCoroutine(ChangeText( ">  To interact with Arrow Switches press:  "));
+			StartCoroutine(ChangeText( ">  To interact with Switches press:  "));
 			break;
 
 		case InstructionState.CHROMAS:
@@ -40,7 +40,7 @@ public class TutText : MonoBehaviour
 			break;
 
 		case InstructionState.PICKUP:
-			StartCoroutine(ChangeText(">  The DataSphere in front of you seems to go into some sort of slot.  To pick up the DataSphere, press:  "));
+			StartCoroutine(ChangeText(">  To pick up the DataSphere, press:  "));
 			break;
 
 		case InstructionState.NOGRAV:

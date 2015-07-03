@@ -7,9 +7,9 @@ public class MouseLook: MonoBehaviour
 {
 	enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
 	RotationAxes axes = RotationAxes.MouseXAndY;
-	float sensitivityX = 15;
-	float sensitivityY = 15;
-	
+	float sensitivityX = SavedSettings.mouseSensitivity;
+	float sensitivityY = SavedSettings.mouseSensitivity;
+
 	float minimumX = -360;
 	float maximumX = 360;
 	
@@ -31,6 +31,11 @@ public class MouseLook: MonoBehaviour
 	
 	void Start () 
 	{
+		#if UNITY_EDITOR
+			sensitivityX = 5f;
+			sensitivityY = 5f;
+		#endif
+
 		if (GetComponent<Rigidbody>())
 			GetComponent<Rigidbody>().freezeRotation = true;
 		originalRotation = transform.localRotation;

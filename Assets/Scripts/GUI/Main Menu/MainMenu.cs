@@ -77,7 +77,7 @@ public class MainMenu : MonoBehaviour
 			}
 			break;
 			
-		case "LeftArrow":
+		case "ResLeftArrow":
 			menuClip.Play();
 			applyButton.resOption.ResIndex--;
 			
@@ -89,7 +89,7 @@ public class MainMenu : MonoBehaviour
 			rayHit.transform.GetComponent<Arrow>().textMesh.text = applyButton.resOption.resolutions[applyButton.resOption.ResIndex].width.ToString() + " x " + applyButton.resOption.resolutions[applyButton.resOption.ResIndex].height.ToString();
 			break;
 			
-		case "RightArrow":
+		case "ResRightArrow":
 			menuClip.Play();
 			applyButton.resOption.ResIndex++;
 			
@@ -100,13 +100,38 @@ public class MainMenu : MonoBehaviour
 			
 			rayHit.transform.GetComponent<Arrow>().textMesh.text = applyButton.resOption.resolutions[applyButton.resOption.ResIndex].width.ToString() + " x " + applyButton.resOption.resolutions[applyButton.resOption.ResIndex].height.ToString();
 			break;
+
+		case "SenRightArrow":
+			menuClip.Play();
+			applyButton.mouseSen.SensitivityIndex++;
 			
+			if(applyButton.mouseSen.SensitivityIndex > (applyButton.mouseSen.sensitivityNum.Length - 1))
+			{
+				applyButton.mouseSen.SensitivityIndex = 0;
+			}	
+			
+			rayHit.transform.GetComponent<Arrow>().textMesh.text = applyButton.mouseSen.sensitivityNum[applyButton.mouseSen.SensitivityIndex].ToString();
+			break;
+
+		case "SenLeftArrow":
+			menuClip.Play();
+			applyButton.mouseSen.SensitivityIndex--;
+			
+			if(applyButton.mouseSen.SensitivityIndex < 0)
+			{
+				applyButton.mouseSen.SensitivityIndex = (applyButton.mouseSen.sensitivityNum.Length - 1);
+			}
+
+			
+			rayHit.transform.GetComponent<Arrow>().textMesh.text = applyButton.mouseSen.sensitivityNum[applyButton.mouseSen.SensitivityIndex].ToString();
+			break;
+
 		case "ApplyButton":
 			menuClip.Play();
 			rayHit.transform.GetComponent<ApplyButton>().ChangeResolution();
 			break;
 			
-		case "Cancel":
+		case "Back":
 			menuClip.Play();
 			chroma.ChangeChroma(ChromaState.BLUE);
 			//	redMenu.ChangeOptions();

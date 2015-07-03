@@ -24,7 +24,7 @@ public class TutText : MonoBehaviour
 			break;
 
 		case InstructionState.INTERACTION:
-			StartCoroutine(ChangeText( ">  To interact with Switches press:  "));
+			StartCoroutine(ChangeText( ">  To interact with the arrow button on this platform press:  "));
 			break;
 
 		case InstructionState.CHROMAS:
@@ -36,11 +36,15 @@ public class TutText : MonoBehaviour
 			break;
 
 		case InstructionState.GRAVITY2:
-			StartCoroutine(ChangeText(">  Press Spacebar to return to normal gravity/jump."));
+			StartCoroutine(ChangeText(">  Press Spacebar to return to normal gravity/jump.  The blue circular platform below you is where you want to land."));
+			break;
+
+		case InstructionState.PRE_PICKUP:
+			StartCoroutine(ChangeText(">  There's a DataSphere on the platform over there.   You will need find a slot for it."));
 			break;
 
 		case InstructionState.PICKUP:
-			StartCoroutine(ChangeText(">  To pick up the DataSphere, press:  "));
+			StartCoroutine(ChangeText(">  Since this DataSphere is blue, you will need to bring it to a matching slot in the blue chroma.  To pick up the DataSphere press:  "));
 			break;
 
 		case InstructionState.NOGRAV:

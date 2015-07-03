@@ -3,12 +3,12 @@ using System.Collections;
 
 public class Arrow : MonoBehaviour
 {
-	public GameObject resOptionObj;
+	public GameObject optionObj;
 	public TextMesh textMesh;
 	// Use this for initialization
 	void Start ()
 	{
-		textMesh = resOptionObj.GetComponent<TextMesh>();
+		textMesh = optionObj.GetComponent<TextMesh>();
 	}
 }
 

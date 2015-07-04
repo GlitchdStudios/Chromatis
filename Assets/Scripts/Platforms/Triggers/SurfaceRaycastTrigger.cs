@@ -12,10 +12,6 @@ public class SurfaceRaycastTrigger : MonoBehaviour
 	public float rightRayDistance;
 	public LayerMask rightMask;
 
-	void Start()
-	{
-		gravityIsNormal = false;
-	}
 
 	void Update()
 	{
@@ -23,6 +19,10 @@ public class SurfaceRaycastTrigger : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
 			gravityIsNormal = true;
+		}
+		if(Input.GetMouseButtonDown(1))
+		{
+			gravityIsNormal = false;
 		}
 	}
 	// Use this for initialization

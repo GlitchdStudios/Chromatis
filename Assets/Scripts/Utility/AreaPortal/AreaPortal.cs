@@ -15,7 +15,7 @@ public class AreaPortal : MonoBehaviour
 
 	void OnTriggerEnter(Collider col)
 	{
-		if(col.name == "Player")
+		if(col.name == "Player" && A1Toolbox.inDataSlot)
 		{
 		        for(int i = 0; i < anim.Length; i++)
 		        {

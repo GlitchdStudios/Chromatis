@@ -36,7 +36,7 @@ public class TutText : MonoBehaviour
 			break;
 
 		case InstructionState.GRAVITY2:
-			StartCoroutine(ChangeText(">  Press Spacebar to return to normal gravity/jump.  The blue circular platform below you is where you want to land."));
+			StartCoroutine(ChangeText(">  Press Spacebar to return to normal gravity and jump.  The blue circular platform below you is where you want to land."));
 			break;
 
 		case InstructionState.PRE_PICKUP:

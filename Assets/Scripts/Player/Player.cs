@@ -21,5 +21,12 @@ public class Player : MonoBehaviour
 		thisTransform.GetComponent<Rigidbody>().Sleep();
 		Toolbox.characterControls.Gravity = initGravity;
 	}
+
+	public void HitCheckpoint()
+	{
+		initPos = this.transform.position;
+		initGravity = Toolbox.characterControls.Gravity;
+		Toolbox.initChromaState = A1Toolbox.chromaState;
+	}
 }
 

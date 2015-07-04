@@ -157,7 +157,11 @@ public class RayCastHandler : MonoBehaviour
 		
 	 	direction = (Toolbox.followTrans.position - hitObject.position).normalized;
 		hitObject.velocity = direction * speed;
-		hitObject.rotation = A1Toolbox.playerTransform.rotation;
+
+		if(!A1Toolbox.inDataSlot)
+		{
+			hitObject.rotation = A1Toolbox.playerTransform.rotation;
+		}
 	}
 
 	private void ChangeFollowPos(Vector3 origin, Vector3 direction)

@@ -25,7 +25,7 @@ public class DataSphereSlot : Utility
 		switch(_dataState)
 		{
 			case DataState.AREAPORTAL_DATA:
-				areaPortal.SetActive(true);
+			areaPortal.GetComponent<CapsuleCollider>().enabled = true;
 			break;
 		}
 	}
@@ -53,11 +53,13 @@ public class DataSphereSlot : Utility
 			dataSphereTrans = col.transform;
 			dataSphereScr = dataSphereTrans.GetComponent<DataSphere>();
 			InitDataSpheres(dataSphereScr);
+			A1Toolbox.playerScr.HitCheckpoint();
 			ProcessData(dataSphereScr.GetDataState);
 			ShowDataSlot();
 			dataSphereScr.a.enableEmission = true;
 			dataSphereScr.b.enableEmission = true;
 			dataSlotFilledClip.Play();
+			A1Toolbox.inDataSlot = true;
 		}
 	}
 

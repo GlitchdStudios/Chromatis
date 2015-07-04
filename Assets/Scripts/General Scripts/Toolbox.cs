@@ -23,5 +23,6 @@ public class Toolbox: MonoBehaviour
 	public static ChromaState initChromaState;
 	public static GameObject[] chroma;
 	public static bool isControlable = true;
+	public static bool inDataSlot;
 	public static Platform[] platforms;
 }

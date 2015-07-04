@@ -44,11 +44,19 @@ public class TutText : MonoBehaviour
 			break;
 
 		case InstructionState.PICKUP:
-			StartCoroutine(ChangeText(">  Since this DataSphere is blue, you will need to bring it to a matching slot in the blue chroma.  To pick up the DataSphere press:  "));
+			StartCoroutine(ChangeText(">  Since this DataSphere is blue, you will need to bring it to a matching slot in the blue chroma."  + Environment.NewLine + Environment.NewLine + ">  To pick up the DataSphere press:  "));
 			break;
 
 		case InstructionState.NOGRAV:
 			StartCoroutine(ChangeText(">  White colored surfaces do not allow you to change your gravity to them."));
+			break;
+
+		case InstructionState.DATASLOT:
+			StartCoroutine(ChangeText(">  It looks like you've found the blue slot.  This is where the DataSphere goes.  It looks like this will open the AreaPortal at the top of this building."));
+			break;
+
+		case InstructionState.AREAPORTAL:
+			StartCoroutine(ChangeText(">  Walk under the AreaPortal to complete your operational test."));
 			break;
 		}
 	}
@@ -61,7 +69,7 @@ public class TutText : MonoBehaviour
 
 		for(int i = 0; i <  _text.Length; i++)
 		{
-			yield return new WaitForSeconds(0.05f);
+			yield return new WaitForSeconds(0.02f);
 			textScr.text += _text[i].ToString();
 
 			if((i + 1) == _text.Length)

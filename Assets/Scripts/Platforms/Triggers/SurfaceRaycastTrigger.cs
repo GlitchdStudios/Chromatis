@@ -5,6 +5,7 @@ public class SurfaceRaycastTrigger : MonoBehaviour
 {
 	private Transform surfaceCasterTrans;
 	private Vector3 playerPos;
+	private Rigidbody playerRigidbody;
 	private Vector3 surfaceDirection;
 	private RaycastHit rayHit;
 	private bool gravityIsNormal;
@@ -29,8 +30,9 @@ public class SurfaceRaycastTrigger : MonoBehaviour
 	{
 		if(col.tag == "Player" && !gravityIsNormal)
 		{
+			playerPos = col.transform.position;
+			playerRigidbody = col.transform.GetComponent<Rigidbody>();
 			surfaceCasterTrans = col.transform.FindChild("SurfaceCaster");
-			playerPos = surfaceCasterTrans.position;
 			surfaceDirection = surfaceCasterTrans.forward;
 
 			if(Physics.Raycast(playerPos, surfaceDirection, out rayHit, rightRayDistance, rightMask))

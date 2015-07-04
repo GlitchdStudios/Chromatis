@@ -22,7 +22,7 @@ public class RayCastHandler : MonoBehaviour
 	public LayerMask leftMask;
 	public LayerMask rightMask;
 	public LayerMask pickupMask;
-	public LayerMask floorMask;
+	public LayerMask blockMask;
 	public AudioClip interactionClip;
 	public AudioClip gravityClip;
 
@@ -99,12 +99,24 @@ public class RayCastHandler : MonoBehaviour
 
 	public void ChangeGravity(Vector3 origin, Vector3 direction)
 	{
-		if(Input.GetMouseButtonDown(1) && Physics.Raycast(origin, direction, out rayHit, rightRayDistance, rightMask))
+		if(Input.GetMouseButtonDown(1) && !Physics.Raycast(origin, direction, out rayHit, rightRayDistance, blockMask))
 		{
-			Toolbox.characterControls.Gravity = -rayHit.normal * Toolbox.generalGravityForce;
-			crosshairScr.StartAnim();
-			audioSource.clip = gravityClip;
-			audioSource.Play();
+			if(Physics.Raycast(origin, direction, out rayHit, rightRayDistance, rightMask))
+			{
+				Toolbox.characterControls.Gravity = -rayHit.normal * Toolbox.generalGravityForce;
+				crosshairScr.StartAnim();
+				audioSource.clip = gravityClip;
+				audioSource.Play();
+
+			}
+		}
+
+		if(!Physics.Raycast(origin, direction, out rayHit, rightRayDistance, blockMask))
+		{
+			if(Physics.Raycast(origin, direction, out rayHit, rightRayDistance,rightMask))
+			{
+				Debug.DrawRay(origin, direction * 38);
+			}
 		}
 
 		if(Input.GetKeyDown(KeyCode.Space))

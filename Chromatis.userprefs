@@ -1,28 +1,38 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GUI\Tutorial\TutText.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\Player.cs">
     <Files>
-      <File FileName="Assets\Scripts\GUI\Tutorial\TutPanel.cs" Line="8" Column="23" />
-      <File FileName="Assets\Scripts\GUI\Tutorial\TutImage.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Tutorial\TutPanel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Tutorial\TutImage.cs" Line="59" Column="5" />
       <File FileName="Assets\Scripts\Level Scripts\Area1\Tutorial.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GUI\Tutorial\TutText.cs" Line="39" Column="147" />
-      <File FileName="Assets\Scripts\Player\Controls\MouseLook.cs" Line="38" Column="3" />
-      <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\MouseSensitivity.cs" Line="19" Column="69" />
-      <File FileName="Assets\Scripts\GUI\Main Menu\MainMenu.cs" Line="113" Column="145" />
-      <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\ApplyButton.cs" Line="17" Column="59" />
+      <File FileName="Assets\Scripts\GUI\Tutorial\TutText.cs" Line="59" Column="94" />
+      <File FileName="Assets\Scripts\Player\Controls\MouseLook.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\MouseSensitivity.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Menu\MainMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\ApplyButton.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\FullScreenToggle.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\Arrow.cs" Line="11" Column="23" />
-      <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\ResolutionOption.cs" Line="13" Column="17" />
-      <File FileName="Assets\Scripts\GUI\Main Menu\SavedSettings.cs" Line="10" Column="3" />
-      <File FileName="e:\Chromatis\Assets\Scripts\Player\Controls\RayCastHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\Arrow.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Menu\Menu Items\Sub Menu Items\ResolutionOption.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Menu\SavedSettings.cs" Line="1" Column="1" />
+      <File FileName="e:\Chromatis\Assets\Scripts\Player\Controls\RayCastHandler.cs" Line="118" Column="1" />
       <File FileName="Assets\Scripts\Player\Controls\DataManipulator.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Utility\DataSphere\DataSphereBase.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GUI\MenuToolbox.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Level Scripts\Area1\A1Toolbox.cs" Line="4" Column="97" />
+      <File FileName="Assets\Scripts\Level Scripts\Area1\A1Toolbox.cs" Line="9" Column="35" />
+      <File FileName="Assets\Scripts\Level Scripts\Area1\ParentTrigger.cs" Line="11" Column="1" />
+      <File FileName="Assets\Scripts\Platforms\Triggers\SurfaceRaycastTrigger.cs" Line="35" Column="66" />
+      <File FileName="Assets\Scripts\Utility\AreaPortal\AreaPortal.cs" Line="18" Column="50" />
+      <File FileName="Assets\Scripts\Utility\DataSlot\DataSphereSlot.cs" Line="56" Column="40" />
+      <File FileName="Assets\Scripts\General Scripts\Toolbox.cs" Line="22" Column="31" />
+      <File FileName="Assets\Scripts\Player\Player.cs" Line="29" Column="31" />
+      <File FileName="Assets\Scripts\General Scripts\Checkpoint.cs" Line="15" Column="43" />
+      <File FileName="Assets\Scripts\Player\Controls\ChromaControls.cs" Line="17" Column="12" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="E:\Chromatis\Assets\Scripts\Platforms\Triggers\SurfaceRaycastTrigger.cs" line="38" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

@@ -39,11 +39,23 @@ public class TutImage : MonoBehaviour
 				Clear();
 			break;
 
+			case InstructionState.PRE_PICKUP:
+				Clear();
+			break;
+
 			case InstructionState.PICKUP:
 				anim.Play("PickupTut");
 			break;
 
 			case InstructionState.NOGRAV:
+				Clear();
+			break;
+
+			case InstructionState.DATASLOT:
+				Clear();
+			break;
+				
+			case InstructionState.AREAPORTAL:
 				Clear();
 			break;
 		}

@@ -36,7 +36,7 @@ public class TutText : MonoBehaviour
 			break;
 
 		case InstructionState.GRAVITY2:
-			StartCoroutine(ChangeText(">  Press Spacebar to return to normal gravity and jump.  The blue circular platform below you is where you want to land."));
+			StartCoroutine(ChangeText(">  Press Spacebar to return to normal gravity or to jump.  The blue circular platform below you is where you want to land."));
 			break;
 
 		case InstructionState.PRE_PICKUP:
@@ -52,7 +52,7 @@ public class TutText : MonoBehaviour
 			break;
 
 		case InstructionState.DATASLOT:
-			StartCoroutine(ChangeText(">  It looks like you've found the blue slot.  This is where the DataSphere goes.  It looks like this will open the AreaPortal at the top of this building."));
+			StartCoroutine(ChangeText(">  It looks like you've found the blue slot.  This is where the DataSphere goes.  This will open the AreaPortal at the top of this building."));
 			break;
 
 		case InstructionState.AREAPORTAL:

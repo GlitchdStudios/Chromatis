@@ -27,17 +27,26 @@ public class GeneralControls : MonoBehaviour
 		}
 	}
 
-	#if UNITY_EDITOR
+	#if UNITY_EDITOR || UNITY_WEBPLAYER
 	void LateUpdate()
 	{
 		if(!menuPlate.activeSelf)
 			Cursor.lockState = CursorLockMode.Locked;
+			if(!Camera.main.GetComponent<MouseLook>().MenuIsUp)
+			{
+				if(Input.GetMouseButtonDown(0))
+				{
+					Cursor.visible = false;
+				}
+			}
 	}
 	#endif
-	
-	void OnApplicationFocus()
-	{
-		Cursor.lockState = CursorLockMode.Confined;
-	}
+
+	#if UNITY_STANDALONE_WIN
+		void OnApplicationFocus()
+		{
+			Cursor.lockState = CursorLockMode.Confined;
+		}
+	#endif
 }
 

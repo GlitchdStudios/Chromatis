@@ -220,7 +220,6 @@ pip-log.txt
 ## Unity
 #############
 
-*.meta
 *.info
 *.file
 /[Ll]ibrary/
